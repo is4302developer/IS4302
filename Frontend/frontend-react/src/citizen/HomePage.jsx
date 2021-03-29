@@ -6,7 +6,7 @@ const styles = makeStyles((theme) => ({}));
 const HomePage = () => {
   const classes = styles();
 
-  return <div></div>;
+  return <div>Hello</div>;
 };
 
 export default HomePage;
