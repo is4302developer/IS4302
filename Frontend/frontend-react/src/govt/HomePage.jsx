@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Navbar from "../Navbar";
-import {
-  Box,
-  Divider,
-  IconButton,
-  Paper,
-  Tab,
-  Tabs,
-  Typography,
-} from "@material-ui/core";
+import Navbar from "../components/Navbar";
+import { Box, Button, Divider, Tab, Tabs, Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import { Link } from "react-router-dom";
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -92,6 +85,27 @@ const HomePage = () => {
     <div>
       <Navbar path="govt" />
       <div className={classes.content}>
+        <div style={{ display: "flex" }}>
+          <div style={{ marginLeft: "auto" }}>
+            <Button
+              variant="outlined"
+              color="primary"
+              component={Link}
+              to="/govt/register"
+            >
+              Register User
+            </Button>
+            <Button
+              variant="outlined"
+              style={{ marginLeft: "20px" }}
+              component={Link}
+              to="/govt/check"
+            >
+              Check User
+            </Button>
+          </div>
+        </div>
+
         <Tabs
           value={value}
           indicatorColor="primary"
