@@ -36,7 +36,7 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
   typography: {
-    fontFamily: "Roboto mono",
+    fontFamily: "Sen",
     h1: {
       fontSize: 36,
     },
