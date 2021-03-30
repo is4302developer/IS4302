@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 const styles = makeStyles((theme) => ({
   paper: {
@@ -18,9 +19,12 @@ const styles = makeStyles((theme) => ({
 
 const LoginPage = () => {
   const classes = styles();
+  const history = useHistory();
 
   const [loginDetails, setLoginDetails] = useState();
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    history.push(`/govt/home`);
+  };
 
   const handleInputChange = (e) => {
     setLoginDetails(e.target.value);
@@ -30,11 +34,11 @@ const LoginPage = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <Paper elevation={3} className={classes.paper}>
-          <Typography variant="h5">For Tracer</Typography>
+          <Typography variant="h5">For Government</Typography>
           <TextField
             variant="outlined"
             margin="dense"
-            placeholder="Enter Tracer Name"
+            placeholder="Enter Name"
             value={loginDetails && loginDetails}
             onChange={handleInputChange}
             required

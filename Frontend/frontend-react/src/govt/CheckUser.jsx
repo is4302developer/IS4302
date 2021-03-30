@@ -5,6 +5,7 @@ import PageTitle from "../components/PageTitle";
 import {
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Paper,
@@ -13,7 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { Warning } from "@material-ui/icons";
+import { ArrowBack, Warning } from "@material-ui/icons";
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -36,23 +37,33 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterUser = () => {
+const CheckUser = () => {
   const classes = styles();
   const history = useHistory();
 
   const [userType, setUserType] = useState();
+  const [inputDetails, setInputDetails] = useState();
 
-  const [registerDetails, setRegisterDetails] = useState();
+  const [result, setResult] = useState();
 
-  const handleRegister = (e) => {
+  const handleCheckUser = (e) => {
     e.preventDefault();
+    setResult({});
   };
 
   return (
     <div>
       <Navbar path="govt" />
       <div className={classes.content}>
-        <PageTitle title="Register User" />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            onClick={() => history.push(`/govt/home`)}
+            style={{ marginRight: "20px" }}
+          >
+            <ArrowBack />
+          </IconButton>
+          <PageTitle title="Check User" />
+        </div>
         <Paper className={classes.paper}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6" style={{ paddingRight: "20px" }}>
@@ -69,9 +80,8 @@ const RegisterUser = () => {
                 value={userType ? userType : ""}
                 onChange={(e) => {
                   setUserType(e.target.value);
-                  setRegisterDetails({
-                    name: registerDetails && registerDetails.name,
-                  });
+                  setInputDetails();
+                  setResult();
                 }}
                 style={{ backgroundColor: "#fff" }}
               >
@@ -86,96 +96,41 @@ const RegisterUser = () => {
           </div>
 
           <div style={{ marginTop: "20px" }}>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleCheckUser}>
               {(() => {
                 if (userType === "citizen") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="h6">NRIC</Typography>
+                      <Typography variant="h6">Citizen's NRIC</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter NRIC"
-                        value={registerDetails && registerDetails.nric}
+                        placeholder="Enter Citizen's NRIC"
+                        value={inputDetails ? inputDetails.nric : ""}
                         onChange={(e) =>
-                          setRegisterDetails({
-                            ...registerDetails,
+                          setInputDetails({
+                            ...inputDetails,
                             nric: e.target.value,
                           })
                         }
                         required
                         autoFocus
                       />
-
-                      <Typography variant="h6" style={{ paddingTop: "20px" }}>
-                        Name
-                      </Typography>
-                      <TextField
-                        variant="outlined"
-                        margin="dense"
-                        placeholder="Enter Citizen's Name"
-                        value={registerDetails && registerDetails.name}
-                        onChange={(e) =>
-                          setRegisterDetails({
-                            ...registerDetails,
-                            name: e.target.value,
-                          })
-                        }
-                        required
-                        autoFocus
-                      />
-
-                      <Typography variant="h6" style={{ paddingTop: "20px" }}>
-                        Address
-                      </Typography>
-                      <TextField
-                        variant="outlined"
-                        margin="dense"
-                        placeholder="Enter Address"
-                        value={registerDetails && registerDetails.address}
-                        onChange={(e) =>
-                          setRegisterDetails({
-                            ...registerDetails,
-                            address: e.target.value,
-                          })
-                        }
-                        required
-                        multiline
-                        rows={4}
-                      />
-
-                      <Typography variant="h6" style={{ paddingTop: "20px" }}>
-                        Mobile Number
-                      </Typography>
-                      <TextField
-                        variant="outlined"
-                        margin="dense"
-                        placeholder="Enter Mobile Number"
-                        value={registerDetails && registerDetails.mobile}
-                        onChange={(e) =>
-                          setRegisterDetails({
-                            ...registerDetails,
-                            mobile: e.target.value,
-                          })
-                        }
-                        required
-                        type="number"
-                      />
                     </div>
                   );
                 } else if (userType === "tracer") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="h6">Name</Typography>
+                      <Typography variant="h6">Tracer's ID</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter Tracer's Name"
-                        value={registerDetails && registerDetails.name}
+                        placeholder="Enter Tracer's ID"
+                        value={inputDetails ? inputDetails.id : ""}
                         onChange={(e) =>
-                          setRegisterDetails({
-                            ...registerDetails,
-                            name: e.target.value,
+                          setInputDetails({
+                            ...inputDetails,
+                            id: e.target.value,
                           })
                         }
                         required
@@ -186,16 +141,16 @@ const RegisterUser = () => {
                 } else if (userType === "shop") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="h6">Name</Typography>
+                      <Typography variant="h6">Shop's ID</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter Shop's Name"
-                        value={registerDetails && registerDetails.name}
+                        placeholder="Enter Shop's ID"
+                        value={inputDetails ? inputDetails.id : ""}
                         onChange={(e) =>
-                          setRegisterDetails({
-                            ...registerDetails,
-                            name: e.target.value,
+                          setInputDetails({
+                            ...inputDetails,
+                            id: e.target.value,
                           })
                         }
                         required
@@ -216,42 +171,94 @@ const RegisterUser = () => {
                         style={{ marginRight: "10px", color: "#f0ae24" }}
                       />
                       <Typography variant="h5">
-                        Please select the type of user to register first
+                        Please select the type of user to check first
                       </Typography>
                     </div>
                   );
                 }
               })()}
+              {!result && userType && (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "30px",
+                  }}
+                >
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#B6EFA7" }}
+                    type="submit"
+                  >
+                    Check
+                  </Button>
+                </div>
+              )}
+            </form>
+          </div>
+
+          {result && result && (
+            <div
+              style={{
+                marginTop: "20px",
+                padding: "24px",
+                backgroundColor: "#DBDBDB",
+                width: "60%",
+                marginLeft: "auto",
+                marginRight: "auto",
+                border: "1px solid #000",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  width: "50%",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  marginTop: "30px",
+                  alignItems: "center",
+                  marginBottom: "20px",
                 }}
               >
-                <Button
-                  variant="contained"
-                  onClick={() => history.push(`/govt/home`)}
+                <Typography
+                  variant="h4"
+                  style={{
+                    fontWeight: 600,
+
+                    paddingRight: "50px",
+                  }}
                 >
-                  Cancel
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#B6EFA7" }}
-                  type="submit"
-                >
-                  Register
-                </Button>
+                  Result
+                </Typography>
+                <Typography variant="h5">This user is </Typography>
               </div>
-            </form>
-          </div>
+
+              <Typography variant="h6" style={{ paddingBottom: "10px" }}>
+                User Type:
+              </Typography>
+              <Typography variant="h6" style={{ paddingBottom: "10px" }}>
+                Address ID:{" "}
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={() => history.push(`/govt/home`)}
+                style={{
+                  backgroundColor: "#164D8F",
+                  color: "#fff",
+                  marginTop: "10px",
+                }}
+                onClick={() => {
+                  setInputDetails();
+                  setUserType();
+                  setResult();
+                }}
+              >
+                Check Another User
+              </Button>
+            </div>
+          )}
         </Paper>
       </div>
     </div>
   );
 };
 
-export default RegisterUser;
+export default CheckUser;
