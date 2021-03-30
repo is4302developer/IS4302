@@ -230,7 +230,7 @@ const RegisterUser = () => {
               >
                 <Button
                   variant="contained"
-                  onClick={() => history.push(`/govt`)}
+                  onClick={() => history.push(`/govt/home`)}
                 >
                   Cancel
                 </Button>

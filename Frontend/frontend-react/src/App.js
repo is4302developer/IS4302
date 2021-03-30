@@ -14,8 +14,8 @@ const App = () => {
       <Route exact path="/tracer" component={TracerLoginPage} />
       <Route exact path="/govt" component={GovtLoginPage} />
       <Route exact path="/govt/home" component={GovtHomePage} />
-      <Route exact path="/govt/register" component={RegisterUser} />
-      <Route exact path="/govt/check" component={GovtCheckUser} />
+      <Route exact path="/govt/home/register" component={RegisterUser} />
+      <Route exact path="/govt/home/check" component={GovtCheckUser} />
     </Switch>
   );
 };
