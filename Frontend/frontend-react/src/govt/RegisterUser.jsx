@@ -44,7 +44,9 @@ const RegisterUser = () => {
 
   const [registerDetails, setRegisterDetails] = useState();
 
-  const handleRegister = () => {};
+  const handleRegister = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div>
@@ -67,7 +69,9 @@ const RegisterUser = () => {
                 value={userType ? userType : ""}
                 onChange={(e) => {
                   setUserType(e.target.value);
-                  setRegisterDetails();
+                  setRegisterDetails({
+                    name: registerDetails && registerDetails.name,
+                  });
                 }}
                 style={{ backgroundColor: "#fff" }}
               >
@@ -92,7 +96,7 @@ const RegisterUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter NRIC"
-                        value={registerDetails && registerDetails}
+                        value={registerDetails && registerDetails.nric}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
@@ -110,7 +114,7 @@ const RegisterUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Citizen's Name"
-                        value={registerDetails && registerDetails}
+                        value={registerDetails && registerDetails.name}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
@@ -128,7 +132,7 @@ const RegisterUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Address"
-                        value={registerDetails && registerDetails}
+                        value={registerDetails && registerDetails.address}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
@@ -147,7 +151,7 @@ const RegisterUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Mobile Number"
-                        value={registerDetails && registerDetails}
+                        value={registerDetails && registerDetails.mobile}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
@@ -167,7 +171,7 @@ const RegisterUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Tracer's Name"
-                        value={registerDetails && registerDetails}
+                        value={registerDetails && registerDetails.name}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
@@ -187,7 +191,7 @@ const RegisterUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Shop's Name"
-                        value={registerDetails && registerDetails}
+                        value={registerDetails && registerDetails.name}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
