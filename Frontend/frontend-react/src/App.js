@@ -10,7 +10,7 @@ import GovtCheckUser from "./govt/CheckUser";
 const App = () => {
   return (
     <Switch>
-      <Route exact path="/" component={CitizenLoginPage} />
+      <Route exact path="/citizen" component={CitizenLoginPage} />
       <Route exact path="/tracer" component={TracerLoginPage} />
       <Route exact path="/govt" component={GovtLoginPage} />
       <Route exact path="/govt/home" component={GovtHomePage} />
