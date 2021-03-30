@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, TextField, Typography } from "@material-ui/core";
+import { Button, Paper, TextField, Typography } from "@material-ui/core";
 
 const styles = makeStyles((theme) => ({
   paper: {
@@ -40,6 +40,14 @@ const LoginPage = () => {
             required
             autoFocus
           />
+          <Button
+            variant="outlined"
+            style={{ marginTop: "20px" }}
+            color="primary"
+            type="submit"
+          >
+            Log In
+          </Button>
         </Paper>
       </form>
     </div>
