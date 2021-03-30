@@ -91,7 +91,7 @@ const HomePage = () => {
               variant="outlined"
               color="primary"
               component={Link}
-              to="/govt/register"
+              to="/govt/home/register"
             >
               Register User
             </Button>
@@ -99,7 +99,7 @@ const HomePage = () => {
               variant="outlined"
               style={{ marginLeft: "20px" }}
               component={Link}
-              to="/govt/check"
+              to="/govt/home/check"
             >
               Check User
             </Button>
