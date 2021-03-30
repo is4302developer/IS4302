@@ -69,7 +69,9 @@ const RegisterUser = () => {
                 value={userType ? userType : ""}
                 onChange={(e) => {
                   setUserType(e.target.value);
-                  setRegisterDetails();
+                  setRegisterDetails({
+                    name: registerDetails && registerDetails.name,
+                  });
                 }}
                 style={{ backgroundColor: "#fff" }}
               >

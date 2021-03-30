@@ -106,7 +106,7 @@ const CheckUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Citizen's NRIC"
-                        value={inputDetails && inputDetails.nric}
+                        value={inputDetails ? inputDetails.nric : ""}
                         onChange={(e) =>
                           setInputDetails({
                             ...inputDetails,
@@ -126,7 +126,7 @@ const CheckUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Tracer's ID"
-                        value={inputDetails && inputDetails.id}
+                        value={inputDetails ? inputDetails.id : ""}
                         onChange={(e) =>
                           setInputDetails({
                             ...inputDetails,
@@ -146,7 +146,7 @@ const CheckUser = () => {
                         variant="outlined"
                         margin="dense"
                         placeholder="Enter Shop's ID"
-                        value={inputDetails && inputDetails.id}
+                        value={inputDetails ? inputDetails.id : ""}
                         onChange={(e) =>
                           setInputDetails({
                             ...inputDetails,
