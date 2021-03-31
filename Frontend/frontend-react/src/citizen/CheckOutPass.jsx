@@ -30,7 +30,7 @@ const styles = makeStyles((theme) => ({
     marginRight: "450px",
     padding: theme.spacing(3),
     elevation: 1,
-    backgroundColor: "#B6EFA7",
+    backgroundColor: "#ff7961",
     square: false
   },
   paperbottom: {
@@ -46,7 +46,6 @@ const styles = makeStyles((theme) => ({
     marginTop: "50px",
     marginLeft: "550px",
     marginRight: "550px",
-    variant: "contained",
     backgroundColor: "#ff7961",
   },
   info: {
@@ -72,7 +71,7 @@ const HomePage = () => {
                 />
               </Icon>
             </Box>
-            <PageTitle style={{ paddingLeft: "40px" }} title="Safe Entry Check-in" />
+            <PageTitle style={{ paddingLeft: "40px" }} title="Safe Entry Check-out" />
           </div>
         </Paper>
         <Paper className={classes.paperbottom}>
@@ -82,10 +81,10 @@ const HomePage = () => {
                 27 Mar 2021,
               </Typography>
               <Typography variant="h4" align="center" className={classes.info}>
-                11.30 AM
+                12:05 PM
               </Typography>
               <Typography variant="h2" align="center" className={classes.info}>
-                NUS THE DECK CANTEEN
+                NEX SHOPPING CENTRE
               </Typography>
             </Box>
           </div>
