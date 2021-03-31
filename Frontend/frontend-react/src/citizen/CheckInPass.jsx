@@ -6,7 +6,6 @@ import {
   Paper,
   Typography,
   Box,
-  Link,
   Icon
 } from "@material-ui/core";
 import { useHistory } from "react-router";
