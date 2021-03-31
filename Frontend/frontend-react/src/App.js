@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import CitizenLoginPage from "../src/citizen/LoginPage";
 import CitizenHomePage from "../src/citizen/HomePage";
+import CitizenCheckInPass from "../src/citizen/CheckInPass";
 import TracerLoginPage from "../src/tracer/LoginPage";
 import GovtLoginPage from "../src/govt/LoginPage";
 import GovtHomePage from "../src/govt/HomePage";
@@ -13,6 +14,7 @@ const App = () => {
     <Switch>
       <Route exact path="/citizen" component={CitizenLoginPage} />
       <Route exact path="/citizen/home" component={CitizenHomePage} />
+      <Route exact path="/citizen/checkinpass" component={CitizenCheckInPass} />
       <Route exact path="/tracer" component={TracerLoginPage} />
       <Route exact path="/govt" component={GovtLoginPage} />
       <Route exact path="/govt/home" component={GovtHomePage} />
