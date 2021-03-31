@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbar";
 import {
   Button,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
-  TextField,
   Typography,
-  Box
+  Box,
+  Link
 } from "@material-ui/core";
+import { useHistory } from "react-router";
+
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -28,15 +25,16 @@ const styles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     marginTop: "20px",
-    marginLeft: "400px",
-    marginRight: "400px",
-    padding: theme.spacing(10),
+    marginLeft: "350px",
+    marginRight: "350px",
+    padding: theme.spacing(5),
     elevation: 1,
   },
 }));
 
 const HomePage = () => {
   const classes = styles();
+  const history = useHistory();
 
   return (
     <div>
@@ -48,38 +46,49 @@ const HomePage = () => {
               <Typography variant="h6" style={{ paddingRight: "20px" }}>
                 SAFEENTRY CHECK-IN
               </Typography>
+              <Typography variant="h6" style={{ paddingRight: "20px" }}>
+                Scan QR Code (KIV)
+              </Typography>
             </Box>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#B6EFA7"}}
-              type="submit"
-              size="large"
-            >
-              Check In
-            </Button>
+            <Box style={{ paddingLeft: "290px" }}>
+              <Button 
+                variant="contained" 
+                style={{ backgroundColor: "#B6EFA7"}} 
+                type="submit" 
+                size="large"
+                onClick={() => history.push(`/citizen/checkin`)}
+              >
+                Check In
+              </Button>
+            </Box>
           </div>
         </Paper>
         <Paper className={classes.paper}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Box>
-              <Typography variant="h6" style={{ paddingRight: "20px" }}>
+              <Typography variant="h6" style={{ paddingBottom: "5px" }}>
                 You last checked in at
               </Typography>
-            </Box>
-            <Box fontWeight="fontWeightBold">
-              <Typography variant="h6" style={{ paddingRight: "20px" }}>
+              <Typography variant="h3">
                 NEX SHOPPING CENTRE
               </Typography>
+              <Typography variant="h6" style={{ paddingTop: "5px" }}>
+                <Link onClick={() => history.push(`/citizen/checkinpass`)}>
+                  View check-in pass
+                </Link>
+              </Typography>
             </Box>
-            
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#ff7961"}}
-              type="submit"
-              size="large"
-            >
-              Check Out
-            </Button>
+            <Box style={{ paddingLeft: "150px" }}>
+              <Button 
+                variant="contained" 
+                style={{ backgroundColor: "#ff7961"}} 
+                type="submit" 
+                size="large"
+                onClick={() => history.push(`/citizen/checkout`)}
+              >
+                Check Out
+              </Button>
+            </Box>
           </div>
         </Paper>
       </div>
