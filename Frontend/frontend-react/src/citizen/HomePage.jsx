@@ -84,7 +84,7 @@ const HomePage = () => {
                 style={{ backgroundColor: "#ff7961"}} 
                 type="submit" 
                 size="large"
-                onClick={() => history.push(`/citizen/checkout`)}
+                onClick={() => history.push(`/citizen/checkoutpass`)}
               >
                 Check Out
               </Button>
