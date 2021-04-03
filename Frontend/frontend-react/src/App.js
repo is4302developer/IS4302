@@ -10,18 +10,72 @@ import GovtHomePage from "../src/govt/HomePage";
 import RegisterUser from "../src/govt/RegisterUser.jsx";
 import GovtCheckUser from "./govt/CheckUser";
 
-const App = () => {
+const App = ({ drizzle, drizzleState }) => {
   return (
     <Switch>
-      <Route exact path="/citizen" component={CitizenLoginPage} />
-      <Route exact path="/citizen/home" component={CitizenHomePage} />
-      <Route exact path="/citizen/checkinpass" component={CitizenCheckInPass} />
-      <Route exact path="/citizen/checkoutpass" component={CitizenCheckOutPass} />
-      <Route exact path="/tracer" component={TracerLoginPage} />
-      <Route exact path="/govt" component={GovtLoginPage} />
-      <Route exact path="/govt/home" component={GovtHomePage} />
-      <Route exact path="/govt/home/register" component={RegisterUser} />
-      <Route exact path="/govt/home/check" component={GovtCheckUser} />
+      <Route
+        exact
+        path="/citizen"
+        render={() => (
+          <CitizenLoginPage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/citizen/home"
+        render={() => (
+          <CitizenHomePage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/citizen/checkinpass"
+        render={() => (
+          <CitizenCheckInPass drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/citizen/checkoutpass"
+        render={() => (
+          <CitizenCheckOutPass drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/tracer"
+        render={() => (
+          <TracerLoginPage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/govt"
+        render={() => (
+          <GovtLoginPage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/govt/home"
+        render={() => (
+          <GovtHomePage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/govt/home/register"
+        render={() => (
+          <RegisterUser drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/govt/home/check"
+        render={() => (
+          <GovtCheckUser drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
     </Switch>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -7,15 +7,44 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
+import { DrizzleContext } from "@drizzle/react-plugin";
+import { Drizzle } from "@drizzle/store";
+
+import DigitalTrace from "./artifacts/Trace.json";
+import DigitalToken from "./artifacts/Trace_Token.json";
+import ERC721Contract from "./artifacts/ERC721Full.json";
+
+const drizzleOptions = {
+  contracts: [DigitalToken, DigitalTrace], // contract names
+  events: {},
+};
+
+const drizzle = new Drizzle(drizzleOptions);
 
 let render = () => {
   ReactDOM.render(
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>,
+    <DrizzleContext.Provider drizzle={drizzle}>
+      <DrizzleContext.Consumer>
+        {(drizzleContext) => {
+          const { drizzle, drizzleState, initialized } = drizzleContext;
+
+          if (!initialized) {
+            return "Loading...";
+          }
+
+          return (
+            <Fragment>
+              <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  <App drizzle={drizzle} drizzleState={drizzleState} />
+                </ThemeProvider>
+              </BrowserRouter>
+            </Fragment>
+          );
+        }}
+      </DrizzleContext.Consumer>
+    </DrizzleContext.Provider>,
     document.getElementById("root")
   );
 };

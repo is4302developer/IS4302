@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbar";
 import { Box, Button, Divider, Tab, Tabs, Typography } from "@material-ui/core";
@@ -39,8 +39,10 @@ function TabPanel(props) {
   );
 }
 
-const HomePage = () => {
+const HomePage = ({ drizzle, drizzleState }) => {
   const classes = styles();
+
+  const [dataKey, setDataKey] = useState(null);
 
   const [value, setValue] = useState(0);
   const tabPanelsArr = [0, 1, 2];
@@ -51,6 +53,25 @@ const HomePage = () => {
   const [citizenRows, setCitizenRows] = useState([]);
   const [tracerRows, setTracerRows] = useState([]);
   const [shopRows, setShopRows] = useState([]);
+
+  const init = () => {
+    console.log(drizzleState);
+    const contract = drizzle.contracts.Trace_Token;
+    const contract1 = drizzle.contracts.Trace;
+    const value = contract.methods["getOwnerOfContract"].cacheCall();
+    const txId = contract1.methods["registerAdmin"].cacheSend(
+      drizzleState.accounts[0],
+      {
+        from: drizzleState.accounts[0],
+      }
+    );
+    setDataKey(txId);
+  };
+
+  useEffect(() => {
+    init();
+    // setDataKey(value);
+  }, []);
 
   const citizenColumns = [
     {
@@ -81,11 +102,29 @@ const HomePage = () => {
     { field: "name", headerName: "Shop Name", width: 300 },
   ];
 
+  const getTxStatus = () => {
+    // get the transaction states from the drizzle state
+    const { transactions, transactionStack } = drizzleState;
+
+    // get the transaction hash using our saved `stackId`
+    const txHash = transactionStack[dataKey];
+    console.log(transactionStack);
+
+    // if transaction hash does not exist, don't display anything
+    if (!txHash) return null;
+
+    // otherwise, return the transaction status
+    return `Transaction status: ${
+      transactions[txHash] && transactions[txHash].status
+    }`;
+  };
+
   return (
     <div>
       <Navbar path="govt" />
       <div className={classes.content}>
         <div style={{ display: "flex" }}>
+          <div>{getTxStatus()}</div>
           <div style={{ marginLeft: "auto" }}>
             <Button
               variant="outlined"
