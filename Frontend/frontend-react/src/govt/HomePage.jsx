@@ -59,13 +59,15 @@ const HomePage = ({ drizzle, drizzleState }) => {
     const contract = drizzle.contracts.Trace_Token;
     const contract1 = drizzle.contracts.Trace;
     const value = contract.methods["getOwnerOfContract"].cacheCall();
-    const txId = contract1.methods["registerAdmin"].cacheSend(
-      drizzleState.accounts[0],
-      {
-        from: drizzleState.accounts[0],
-      }
-    );
-    setDataKey(txId);
+
+    //   const txId = contract1.methods["getAccessRecords"].cacheCall(
+    //     drizzleState.accounts[0],
+    //     {
+    //       from: drizzleState.accounts[0],
+    //     }
+    //   );
+    //   console.log(txId);
+    //   setDataKey(txId);
   };
 
   useEffect(() => {
@@ -102,21 +104,11 @@ const HomePage = ({ drizzle, drizzleState }) => {
     { field: "name", headerName: "Shop Name", width: 300 },
   ];
 
-  const getTxStatus = () => {
-    // get the transaction states from the drizzle state
-    const { transactions, transactionStack } = drizzleState;
-
-    // get the transaction hash using our saved `stackId`
-    const txHash = transactionStack[dataKey];
-    console.log(transactionStack);
-
-    // if transaction hash does not exist, don't display anything
-    if (!txHash) return null;
-
-    // otherwise, return the transaction status
-    return `Transaction status: ${
-      transactions[txHash] && transactions[txHash].status
-    }`;
+  const getDetails = () => {
+    const { Trace } = drizzleState.contracts;
+    console.log(Trace);
+    const getRecords = Trace.getAccessRecords[dataKey];
+    console.log(getRecords);
   };
 
   return (
@@ -124,7 +116,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
       <Navbar path="govt" />
       <div className={classes.content}>
         <div style={{ display: "flex" }}>
-          <div>{getTxStatus()}</div>
+          {/* <div>{getDetails()}</div> */}
           <div style={{ marginLeft: "auto" }}>
             <Button
               variant="outlined"

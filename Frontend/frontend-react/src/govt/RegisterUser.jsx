@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { Warning } from "@material-ui/icons";
+import Toast from "../components/Toast";
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -36,23 +37,103 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterUser = () => {
+const RegisterUser = ({ drizzle, drizzleState }) => {
   const classes = styles();
   const history = useHistory();
+
+  const [sbOpen, setSbOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    message: "",
+    severity: "error",
+    anchorOrigin: {
+      vertical: "bottom",
+      horizontal: "center",
+    },
+  });
 
   const [userType, setUserType] = useState();
 
   const [registerDetails, setRegisterDetails] = useState();
+  const [dataKey, setDataKey] = useState(null);
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    const contract = drizzle.contracts.Trace;
+    if (userType === "citizen") {
+      // const txId = contract.methods["registerAdmin"].cacheSend(
+      //   drizzleState.accounts[1],
+      //   {
+      //     from: drizzleState.accounts[0],
+      //   }
+      // );
+    } else if (userType === "tracer") {
+      const txId = contract.methods["registerTracer"].cacheSend(
+        drizzleState.accounts[0],
+        {
+          from: drizzleState.accounts[0],
+        }
+      );
+      setDataKey(txId);
+    } else if (userType === "admin") {
+      const txId = contract.methods["registerAdmin"].cacheSend(
+        drizzleState.accounts[0],
+        {
+          from: drizzleState.accounts[0],
+        }
+      );
+      setDataKey(txId);
+      getTxStatus();
+    }
+  };
+
+  console.log(drizzleState.accounts);
+
+  const getTxStatus = () => {
+    // get the transaction states from the drizzle state
+    const { transactions, transactionStack } = drizzleState;
+
+    // get the transaction hash using our saved `stackId`
+    const txHash = transactionStack[dataKey];
+    // console.log(transactionStack);
+
+    // if transaction hash does not exist, don't display anything
+    // if (!txHash) return null;
+
+    // otherwise, return the transaction status
+    // console.log(transactions[txHash] && transactions[txHash].status);
+    // return `Transaction status: ${
+    //   transactions[txHash] && transactions[txHash].status
+    // }`;
+    // console.log(txHash && transactions[txHash] && transactions[txHash].status);
+    if (
+      txHash &&
+      transactions[txHash] &&
+      transactions[txHash].status === "success"
+    ) {
+      if (sbOpen === false) {
+        setSbOpen(true);
+        setSnackbar({
+          message: "User registered successfully!",
+          severity: "success",
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "center",
+          },
+          autoHideDuration: 5000,
+        });
+        setRegisterDetails({ name: "", nric: "", address: "", mobile: "" });
+      }
+    }
   };
 
   return (
     <div>
       <Navbar path="govt" />
       <div className={classes.content}>
+        <Toast open={sbOpen} setOpen={setSbOpen} {...snackbar} />
         <PageTitle title="Register User" />
+        <div>{getTxStatus()}</div>
         <Paper className={classes.paper}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6" style={{ paddingRight: "20px" }}>
@@ -80,7 +161,7 @@ const RegisterUser = () => {
                 </MenuItem>
                 <MenuItem value="citizen">Citizen</MenuItem>
                 <MenuItem value="tracer">Tracer</MenuItem>
-                <MenuItem value="shop">Shop</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -183,14 +264,14 @@ const RegisterUser = () => {
                       />
                     </div>
                   );
-                } else if (userType === "shop") {
+                } else if (userType === "admin") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <Typography variant="h6">Name</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter Shop's Name"
+                        placeholder="Enter Admin's Name"
                         value={registerDetails && registerDetails.name}
                         onChange={(e) =>
                           setRegisterDetails({
