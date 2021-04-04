@@ -1,4 +1,5 @@
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
 contract Trace {
 
@@ -17,7 +18,7 @@ contract Trace {
     }
 
     mapping(address => AccessRecord[]) accessRecords; 
-    // given tracer address, see all the info he accessed.
+    // given citizen address, see all the access records.
     
     constructor() public {
       owner = msg.sender;
@@ -52,6 +53,15 @@ contract Trace {
         AccessRecord memory newRecord = AccessRecord(_hashedNric,_timeStamp, _purpose);
         accessRecords[msg.sender].push(newRecord);
         //return True;
+    }
+    
+    function getOwner() public view returns(address){
+        return owner;
+    }
+
+    
+    function getAccessRecords (address _citizen) public view returns(AccessRecord[] memory) {
+        return  accessRecords[_citizen];
     }
 
 }
