@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/src/artifacts
+
 # testing
 /coverage
 
