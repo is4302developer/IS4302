@@ -12,7 +12,7 @@ contract Trace {
     //given a token, returns all the trace records. but only tracer can know who owns the token by querying the db.
     
     struct AccessRecord {
-        bytes32 hashedNric;
+        address tracer;
         bytes32 timeStamp; //no datetime type added yet 
         bytes32 purpose;
     }
@@ -48,9 +48,8 @@ contract Trace {
     }
     
     
-    function approveRetrieval(bytes32 nric, bytes32 _timeStamp, bytes32 _purpose) public {
-        bytes32 _hashedNric = keccak256(abi.encodePacked(nric));
-        AccessRecord memory newRecord = AccessRecord(_hashedNric,_timeStamp, _purpose);
+    function approveRetrieval(bytes32 _timeStamp, bytes32 _purpose) public {
+        AccessRecord memory newRecord = AccessRecord(msg.sender,_timeStamp, _purpose);
         accessRecords[msg.sender].push(newRecord);
         //return True;
     }
