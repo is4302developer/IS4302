@@ -1,0 +1,112 @@
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Navbar from "../components/Navbar";
+import {
+  Button,
+  FormControl,
+  Paper,
+  TextField,
+  Typography,
+  Divider,
+  Grid
+} from "@material-ui/core";
+import { useHistory } from "react-router";
+import { DataGrid, GridRowsProp, GridColDef } from "@material-ui/data-grid";
+
+const styles = makeStyles((theme) => ({
+  content: {
+    marginTop: "65px",
+    paddingTop: theme.spacing(3),
+    paddingLeft: theme.spacing(30),
+    paddingRight: theme.spacing(30),
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "30px",
+  },
+  formControl: {
+    width: "350px",
+  },
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "20px",
+    padding: theme.spacing(3),
+    alignItems: "center",
+  },
+  paper2: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "20px",
+    alignItems: "center",
+  },
+}));
+
+const shopColumns: GridColDef[] = [
+  { field: "shopname", headerName: "Shop Name", width: 400 }
+];
+
+const shopRows: GridRowsProp = [
+  { id: 1, shopname: 'NEX BURGER KING' },
+  { id: 2, shopname: "KING'S POOL" },
+  { id: 3, shopname: "TOA PAYOH CENTRAL LIBRARY" },
+  { id: 4, shopname: "NUS SCHOOL OF COMPUTING" },
+  { id: 5, shopname: "NUS THE DECK CANTEEN" },
+]
+
+const HomePage = () => {
+  const classes = styles();
+  const history = useHistory();
+
+  return (
+    <div>
+      <Navbar path='citizen' />
+      <div className={classes.content}>
+        <Paper className={classes.paper}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6" style={{ paddingRight: "20px" }}>
+              Check in to:
+            </Typography>
+            <FormControl
+              margin="dense"
+              variant="outlined"
+              className={classes.formControl}
+            >
+              <TextField id="outlined-basic" label="Shop name" variant="outlined" required autoFocus/>
+            </FormControl>
+            <Button 
+              variant="contained" 
+              style={{ backgroundColor: "#B6EFA7"}} 
+              type="submit" 
+              size="large"
+              onClick={() => history.push(`/citizen/checkinpass`)}
+            >
+              Go!
+            </Button>
+          </div>
+        </Paper>
+        <Divider
+          style={{
+            height: "1px",
+            backgroundColor: "#000000",
+            width: "100%",
+          }}
+        />
+        <div style={{ height: "400px", marginTop: "10px" }}>
+          <Typography variant="h4" style={{ alignItems: "center" }}>
+            Favourites
+          </Typography>
+          <DataGrid
+            rows={shopRows}
+            columns={shopColumns}
+            pageSize={10}
+            //checkboxSelection
+            disableSelectionOnClick
+            onRowClick={(e) => console.log("E")}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;
