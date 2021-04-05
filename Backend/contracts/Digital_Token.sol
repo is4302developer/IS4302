@@ -37,6 +37,7 @@ contract ContactTracing_Token is ERC721Full {
     // Ensures that the individual has a token
     modifier validToken(address _address) {
         require(citizens[_address].isMinted == true);
+        _;
     }
 
     // function getRole(address _addresss) public view returns (citizenRole) {
