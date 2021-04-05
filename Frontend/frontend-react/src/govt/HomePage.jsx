@@ -56,7 +56,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
 
   const init = () => {
     console.log(drizzleState);
-    const contract = drizzle.contracts.Trace_Token;
+    const contract = drizzle.contracts.ContactTracing_Token;
     const contract1 = drizzle.contracts.Trace;
     const value = contract.methods["getOwnerOfContract"].cacheCall();
 
