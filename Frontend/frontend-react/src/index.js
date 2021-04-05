@@ -11,7 +11,7 @@ import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 
 import DigitalTrace from "./artifacts/Trace.json";
-import DigitalToken from "./artifacts/Trace_Token.json";
+import DigitalToken from "./artifacts/ContactTracing_Token.json";
 import ERC721Contract from "./artifacts/ERC721Full.json";
 
 const drizzleOptions = {
