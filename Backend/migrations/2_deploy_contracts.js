@@ -1,4 +1,4 @@
-const DigitalToken = artifacts.require("Trace_Token");
+const DigitalToken = artifacts.require("ContactTracing_Token");
 const DigitalTrace = artifacts.require("Trace");
 
 module.exports = async function (deployer, network, accounts) {
