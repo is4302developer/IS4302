@@ -105,4 +105,8 @@ contract ContactTracing_Token is ERC721Full {
         address citizenAddress = getTokenOwner(tokenId);
         return citizens[citizenAddress].role;
     }
+
+    function getOwnerOfContract() public view returns (address) {
+        return contractOwner;
+    }
 }
