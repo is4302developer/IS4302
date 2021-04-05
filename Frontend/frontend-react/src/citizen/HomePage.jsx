@@ -46,9 +46,6 @@ const HomePage = () => {
               <Typography variant="h6" style={{ paddingRight: "20px" }}>
                 SAFEENTRY CHECK-IN
               </Typography>
-              <Typography variant="h6" style={{ paddingRight: "20px" }}>
-                Scan QR Code (KIV)
-              </Typography>
             </Box>
             <Box style={{ paddingLeft: "290px" }}>
               <Button 
