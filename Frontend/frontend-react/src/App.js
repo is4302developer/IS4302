@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import CitizenLoginPage from "../src/citizen/LoginPage";
 import CitizenHomePage from "../src/citizen/HomePage";
+import CitizenCheckInPage from "../src/citizen/CheckInPage";
 import CitizenCheckInPass from "../src/citizen/CheckInPass";
 import CitizenCheckOutPass from "../src/citizen/CheckOutPass";
 import TracerLoginPage from "../src/tracer/LoginPage";
@@ -26,6 +27,13 @@ const App = ({ drizzle, drizzleState }) => {
         path="/citizen/home"
         render={() => (
           <CitizenHomePage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/citizen/checkin"
+        render={() => (
+          <CitizenCheckInPage drizzle={drizzle} drizzleState={drizzleState} />
         )}
       />
       <Route
