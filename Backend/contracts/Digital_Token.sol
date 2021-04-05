@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 import "./ERC721Full.sol";
 
-contract ContactTracing_Token is ERC721Full {
+contract ContactTracingToken is ERC721Full {
 
     address contractOwner;
     enum citizenRole { tracer, admin, NA }  // Prevents conflict of interest
@@ -63,7 +63,7 @@ contract ContactTracing_Token is ERC721Full {
         citizens[citizenAddress].role = citizenRole.tracer;
     }
 
-    function getTokenOwner(uint256 tokenId) internal view returns (address) {
+    function getTokenOwner(uint256 tokenId) public view returns (address) {
         return tokenOwners[tokenId];
     }
 
@@ -97,13 +97,38 @@ contract ContactTracing_Token is ERC721Full {
         citizens[citizenAddress].numOfGuarantors = value;
     }
 
-    function getRoleByAddress(address citizenAddress) external view returns (citizenRole)  {
-        return citizens[citizenAddress].role;
+    function isTracerByAddress(address citizenAddress) external view returns (bool)  {
+        if (citizens[citizenAddress].role == citizenRole.tracer) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    function getRoleByTokenId(uint256 tokenId) external view returns (citizenRole) {
+    function isTracerByTokenId(uint256 tokenId) external view returns (bool) {
         address citizenAddress = getTokenOwner(tokenId);
-        return citizens[citizenAddress].role;
+        if (citizens[citizenAddress].role == citizenRole.tracer) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isAdminByAddress(address citizenAddress) external view returns (bool)  {
+        if (citizens[citizenAddress].role == citizenRole.admin) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isAdminByTokenId(uint256 tokenId) external view returns (bool) {
+        address citizenAddress = getTokenOwner(tokenId);
+        if (citizens[citizenAddress].role == citizenRole.admin) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function getOwnerOfContract() public view returns (address) {

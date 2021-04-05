@@ -28,7 +28,7 @@ contract ContactTracing {
     mapping(uint256 => uint256) appointedTracers;  // appointer => appointed
     mapping(uint256 => TracingDuty[5]) appointedDuties; 
 
-    function checkIn(uint256 tokenId) public returns (bool) {
+    function checkIn(uint256 tokenId) public view returns (bool) {
         address _address = cttContract.getTokenOwner(tokenId);
         if (_address == msg.sender) {
             return true;
@@ -37,7 +37,7 @@ contract ContactTracing {
         }
     }
 
-    function checkOut(uint256 tokenId) public returns (bool) {
+    function checkOut(uint256 tokenId) public view returns (bool) {
         address _address = cttContract.getTokenOwner(tokenId);
          if (_address == msg.sender) {
             return true;
@@ -53,15 +53,13 @@ contract ContactTracing {
     // For citizens to choose and appoint their preferred contact tracer
     function appointTracer(uint256 tokenId) public {
         uint256 appointerTokenId = cttContract.getCitizenTokenId(msg.sender);
-        citizenRole role = cttContract.getRoleByTokenId(tokenId);
-        require(role == citizenRole.tracer); // Ensure that the tokenId belongs to a valid contact tracer
+        require(cttContract.isTracerByTokenId(tokenId) == true); // Ensure that the tokenId belongs to a valid contact tracer
         appointedTracers[appointerTokenId] = tokenId;
     }
 
     // For admin to appoint duties to contact tracers
     function appointTracingDuties(uint256 tokenIdSuspect) public returns (bool) {
-        citizenRole senderRole = cttContract.getRoleByAddress(msg.sender);
-        require(senderRole == citizenRole.admin); // Restrict function to admins only
+        require(cttContract.isAdminByAddress(msg.sender) == true); // Restrict function to admins only
         uint256 tokenIdTracer = appointedTracers[tokenIdSuspect];
         for (uint i = 0; i < 5; i++) {
             if (appointedDuties[tokenIdTracer][i].caseExists == false) {
