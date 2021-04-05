@@ -5,6 +5,7 @@ import CitizenHomePage from "../src/citizen/HomePage";
 import CitizenCheckInPass from "../src/citizen/CheckInPass";
 import CitizenCheckOutPass from "../src/citizen/CheckOutPass";
 import TracerLoginPage from "../src/tracer/LoginPage";
+import TracerHomePage from "../src/tracer/HomePage"
 import GovtLoginPage from "../src/govt/LoginPage";
 import GovtHomePage from "../src/govt/HomePage";
 import RegisterUser from "../src/govt/RegisterUser.jsx";
@@ -46,6 +47,13 @@ const App = ({ drizzle, drizzleState }) => {
         path="/tracer"
         render={() => (
           <TracerLoginPage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/tracer/home"
+        render={() => (
+          <TracerHomePage drizzle={drizzle} drizzleState={drizzleState} />
         )}
       />
       <Route
