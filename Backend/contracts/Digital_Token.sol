@@ -9,7 +9,7 @@ contract ContactTracing_Token is ERC721Full {
     mapping(address => citizenToken) citizens;
     mapping(uint256 => address) tokenOwners;
 
-    constructor() public {
+    constructor() public ERC721Full("Collectible", "COL") {
         contractOwner = msg.sender;
     }
 
@@ -19,6 +19,7 @@ contract ContactTracing_Token is ERC721Full {
         citizenRole role;
         uint256 numReview;
         uint256 rating;
+        uint256 numOfGuarantors;
     }
 
     modifier onlyAdmin(address _address) {
@@ -26,7 +27,6 @@ contract ContactTracing_Token is ERC721Full {
         require(role == citizenRole.admin || _address == contractOwner);
         _;
     }
-
 
     // Prevent issuing more than 1 token to any individual
     modifier validIssuance(address _address) {
@@ -37,18 +37,16 @@ contract ContactTracing_Token is ERC721Full {
     // Ensures that the individual has a token
     modifier validToken(address _address) {
         require(citizens[_address].isMinted == true);
+        _;
     }
 
-    // function getRole(address _addresss) public view returns (citizenRole) {
-    //     return citizens[_addresss].role;
-    // }
-
     function createToken(address citizenAddress) public onlyAdmin(msg.sender) validIssuance(citizenAddress) {
-        _mint(citizenAddress, issueId);
+        _mint(citizenAddress, issueId);  
         citizenToken memory newToken = citizenToken(
             true,
             issueId,
             citizenRole.NA,
+            0,
             0,
             0
         );
@@ -65,20 +63,46 @@ contract ContactTracing_Token is ERC721Full {
         citizens[citizenAddress].role = citizenRole.tracer;
     }
 
+    function getTokenOwner(uint256 tokenId) internal view returns (address) {
+        return tokenOwners[tokenId];
+    }
+
+    function getCitizenTokenId(address citizenAddress) external view returns (uint256) {
+        return citizens[citizenAddress].tokenId;
+    }
+
+    function getCitizenReview(address citizenAddress) external view returns (uint256) {
+        return citizens[citizenAddress].numReview;
+    }
+
+    function getCitizenRating(address citizenAddress) external view returns (uint256) {
+        return citizens[citizenAddress].rating;
+    }
+
+    function getCitizenGuarantors(address citizenAddress) external view returns (uint256) {
+        return citizens[citizenAddress].numOfGuarantors;
+    }
+
+    function setCitizenReview(uint256 tokenId, uint256 value) external {
+        address citizenAddress = getTokenOwner(tokenId);
+        citizens[citizenAddress].numReview = value;
+    }
+
+    function setCitizenRating(uint256 tokenId, uint256 value) external {
+        address citizenAddress = getTokenOwner(tokenId);
+        citizens[citizenAddress].rating = value;
+    }
+
+    function setCitizenGuarantors(address citizenAddress, uint256 value) external {
+        citizens[citizenAddress].numOfGuarantors = value;
+    }
+
+    function getRoleByAddress(address citizenAddress) external view returns (citizenRole)  {
+        return citizens[citizenAddress].role;
+    }
+
+    function getRoleByTokenId(uint256 tokenId) external view returns (citizenRole) {
+        address citizenAddress = getTokenOwner(tokenId);
+        return citizens[citizenAddress].role;
+    }
 }
-
-// contract Trace_Token is ERC721Full {
-//     constructor() public ERC721Full("Collectible", "COL") {}
-
-//     address _owner = msg.sender;
-
-//     function createToken(bytes32 hashedNric) public {
-//         require(msg.sender == _owner);
-//     }
-
-//     function getOwnerOfContract() public view returns (address) {
-//         return _owner;
-//     }
-
-//     function checkToken() public returns (bool) {}
-// }
