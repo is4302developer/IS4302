@@ -51,8 +51,6 @@ const HomePage = () => {
               <Button 
                 variant="contained" 
                 style={{ backgroundColor: "#B6EFA7"}} 
-                type="submit" 
-                size="large"
                 onClick={() => history.push(`/citizen/checkin`)}
               >
                 Check In
@@ -79,8 +77,6 @@ const HomePage = () => {
               <Button 
                 variant="contained" 
                 style={{ backgroundColor: "#ff7961"}} 
-                type="submit" 
-                size="large"
                 onClick={() => history.push(`/citizen/checkoutpass`)}
               >
                 Check Out
