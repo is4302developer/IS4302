@@ -8,10 +8,9 @@ import {
   TextField,
   Typography,
   Divider,
-  Grid
 } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { DataGrid, GridRowsProp, GridColDef } from "@material-ui/data-grid";
+import { DataGrid } from "@material-ui/data-grid";
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -33,19 +32,13 @@ const styles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     alignItems: "center",
   },
-  paper2: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "20px",
-    alignItems: "center",
-  },
 }));
 
-const shopColumns: GridColDef[] = [
+const shopColumns = [
   { field: "shopname", headerName: "Shop Name", width: 400 }
 ];
 
-const shopRows: GridRowsProp = [
+const shopRows = [
   { id: 1, shopname: 'NEX BURGER KING' },
   { id: 2, shopname: "KING'S POOL" },
   { id: 3, shopname: "TOA PAYOH CENTRAL LIBRARY" },
@@ -91,7 +84,7 @@ const HomePage = () => {
             width: "100%",
           }}
         />
-        <div style={{ height: "400px", marginTop: "10px" }}>
+        <div style={{ height: "400px", marginTop: "10px", paddingLeft: "150px", paddingRight: "150px" }}>
           <Typography variant="h4" style={{ alignItems: "center" }}>
             Favourites
           </Typography>
