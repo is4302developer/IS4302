@@ -78,10 +78,19 @@ contract ContactTracing {
         return false;
     }
 
-    function approveRetrieval(bytes32 _timeStamp, bytes32 _purpose) public {
-        AccessRecord memory newRecord = AccessRecord(msg.sender,_timeStamp, _purpose);
-        accessRecords[msg.sender].push(newRecord);
-        //return True;
+    function approveRetrieval(bytes32 _timeStamp, bytes32 _purpose, uint256 tokenIdSuspect) public {
+        uint256 tokenIdTracer = cttContract.getCitizenTokenId(msg.sender);
+        bool isValid = false;
+        for (uint i = 0; i < 5; i++) {
+            if (appointedDuties[tokenIdTracer][i].tokenIdSuspect == tokenIdSuspect) {
+                isValid = true;
+            }
+        }
+        require(isValid == true);
+        AccessRecord memory newRecord = AccessRecord(msg.sender, _timeStamp, _purpose);
+        address suspect = cttContract.getTokenOwner(tokenIdSuspect);
+        accessRecords[suspect].push(newRecord);
+        // //return True;
     }
 
     function getAccessRecords (address _citizen) public view returns(AccessRecord[] memory) {
