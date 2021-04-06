@@ -6,11 +6,12 @@ import CitizenCheckInPage from "../src/citizen/CheckInPage";
 import CitizenCheckInPass from "../src/citizen/CheckInPass";
 import CitizenCheckOutPass from "../src/citizen/CheckOutPass";
 import TracerLoginPage from "../src/tracer/LoginPage";
-import TracerHomePage from "../src/tracer/HomePage"
+import TracerHomePage from "../src/tracer/HomePage";
 import GovtLoginPage from "../src/govt/LoginPage";
 import GovtHomePage from "../src/govt/HomePage";
 import RegisterUser from "../src/govt/RegisterUser.jsx";
 import GovtCheckUser from "./govt/CheckUser";
+import LandingPage from "./LandingPage";
 
 const App = ({ drizzle, drizzleState }) => {
   return (
@@ -92,6 +93,7 @@ const App = ({ drizzle, drizzleState }) => {
           <GovtCheckUser drizzle={drizzle} drizzleState={drizzleState} />
         )}
       />
+      <Route exact path="/" render={() => <LandingPage />} />
     </Switch>
   );
 };

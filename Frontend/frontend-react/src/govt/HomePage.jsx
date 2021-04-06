@@ -103,8 +103,11 @@ const HomePage = ({ drizzle, drizzleState }) => {
     <div>
       <Navbar path="govt" />
       <div className={classes.content}>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           {/* <div>{getDetails()}</div> */}
+          <Typography variant="h2" style={{ fontWeight: 600 }}>
+            Government
+          </Typography>
           <div style={{ marginLeft: "auto" }}>
             <Button
               variant="outlined"
