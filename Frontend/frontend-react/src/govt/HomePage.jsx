@@ -56,18 +56,6 @@ const HomePage = ({ drizzle, drizzleState }) => {
 
   const init = () => {
     console.log(drizzleState);
-    const contract = drizzle.contracts.ContactTracing_Token;
-    const contract1 = drizzle.contracts.Trace;
-    const value = contract.methods["getOwnerOfContract"].cacheCall();
-
-    //   const txId = contract1.methods["getAccessRecords"].cacheCall(
-    //     drizzleState.accounts[0],
-    //     {
-    //       from: drizzleState.accounts[0],
-    //     }
-    //   );
-    //   console.log(txId);
-    //   setDataKey(txId);
   };
 
   useEffect(() => {
