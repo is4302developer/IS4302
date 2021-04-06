@@ -19,7 +19,22 @@ contract DigitalEndorse {
         require(cttContract.isTracerByAddress(tracer));
         require(tokenContract.balanceOf(msg.sender) > 0);
         uint256 tokId = tokenContract.getTokenId(msg.sender);
-        tokenContract.approve(address(this), tokId);
-        tokenContract.transferFrom(msg.sender, tracer, tokId);
+        require(tokenContract.ownerOf(tokId) == msg.sender);
+        //tokenContract.approve(address(this), tokId);
+        tokenContract.transferFrom(msg.sender, _owner, tokId);
+        uint256 gurantorsNo = cttContract.getCitizenGuarantors(tracer) + 1;
+        cttContract.setCitizenGuarantors(tracer, gurantorsNo);
     }
+
+    function unendorseTracer(address tracer) public {
+        require(cttContract.isTracerByAddress(tracer));
+        uint256 tokId = tokenContract.getTokenId(msg.sender);
+        require(tokenContract.ownerOf(tokId) == _owner); 
+        tokenContract.transferFrom(_owner, msg.sender, tokId);
+        uint256 gurantorsNo = cttContract.getCitizenGuarantors(tracer) - 1;
+        cttContract.setCitizenGuarantors(tracer, gurantorsNo);
+    }
+
+
+
 }

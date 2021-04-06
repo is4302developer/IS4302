@@ -96,9 +96,15 @@ contract ContactTracing {
         // //return True;
     }
 
-    function getAccessRecords (address _citizen) public view returns(AccessRecord[] memory) {
+    function getAccessRecords(address _citizen) public view returns(AccessRecord[] memory) {
         return accessRecords[_citizen];
     }
+
+    function getTracingDuties(address _citizen) public view returns(TracingDuty[5] memory) {
+        uint256 tokId = cttContract.getCitizenTokenId(_citizen);
+        return appointedDuties[tokId];
+    }
+
 
 }
 
