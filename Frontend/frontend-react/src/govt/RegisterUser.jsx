@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbar";
 import PageTitle from "../components/PageTitle";
@@ -49,6 +49,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
       vertical: "bottom",
       horizontal: "center",
     },
+    autoHideDuration: 5000,
   });
 
   const [userType, setUserType] = useState();
@@ -115,7 +116,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
       if (sbOpen === false) {
         setSbOpen(true);
         setSnackbar({
-          message: "User registered successfully!",
+          message: "Transaction success!",
           severity: "success",
           anchorOrigin: {
             vertical: "bottom",
@@ -128,6 +129,31 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
     }
   };
 
+  const handleMintToken = () => {
+    const contract2 = drizzle.contracts.ContactTracingToken;
+    const tx = contract2.methods["createToken"].cacheSend(
+      drizzleState.accounts[0],
+      {
+        from: drizzleState.accounts[0],
+      }
+    );
+    setDataKey(tx);
+    console.log(tx);
+  };
+
+  // const getDetails = () => {
+  //   const { ContactTracingToken } = drizzleState.contracts;
+  //   const getRecords = ContactTracingToken.getOwnerOfContract[dataKey];
+  //   console.log(getRecords);
+  // };
+
+  // useEffect(() => {
+  //   const tx = drizzle.contracts.ContactTracingToken.methods[
+  //     "getOwnerOfContract"
+  //   ].cacheCall({ from: drizzleState.accounts[0] });
+  //   setDataKey(tx);
+  // }, []);
+
   return (
     <div>
       <Navbar path="govt" />
@@ -135,6 +161,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
         <Toast open={sbOpen} setOpen={setSbOpen} {...snackbar} />
         <PageTitle title="Register User" />
         <div>{getTxStatus()}</div>
+        {/* <div>{getDetails()}</div> */}
         <Paper className={classes.paper}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6" style={{ paddingRight: "20px" }}>
@@ -319,6 +346,9 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
                   onClick={() => history.push(`/govt/home`)}
                 >
                   Cancel
+                </Button>
+                <Button variant="contained" onClick={() => handleMintToken()}>
+                  Create Token
                 </Button>
                 <Button
                   variant="contained"

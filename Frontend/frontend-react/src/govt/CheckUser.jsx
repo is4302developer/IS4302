@@ -37,7 +37,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const CheckUser = () => {
+const CheckUser = ({ drizzle, drizzleState }) => {
   const classes = styles();
   const history = useHistory();
 
@@ -45,10 +45,81 @@ const CheckUser = () => {
   const [inputDetails, setInputDetails] = useState();
 
   const [result, setResult] = useState();
+  const [dataKey, setDataKey] = useState();
 
   const handleCheckUser = (e) => {
     e.preventDefault();
-    setResult({});
+
+    const contract2 = drizzle.contracts.ContactTracingToken;
+    if (userType === "tracer") {
+      const txId = contract2.methods["isTracerByAddress"].cacheCall(
+        inputDetails.id,
+        {
+          from: drizzleState.accounts[0],
+        }
+      );
+      setDataKey(txId);
+      setResult({
+        id: inputDetails.id,
+      });
+    } else if (userType === "admin") {
+      const txId = contract2.methods["isAdminByAddress"].cacheCall(
+        inputDetails.id,
+        {
+          from: drizzleState.accounts[0],
+        }
+      );
+      setDataKey(txId);
+      setResult({
+        id: inputDetails.id,
+      });
+    }
+  };
+
+  const getResult = () => {
+    const { ContactTracingToken } = drizzleState.contracts;
+    let bool;
+    if (userType === "tracer") {
+      bool = ContactTracingToken.isTracerByAddress[dataKey];
+    } else if (userType === "admin") {
+      bool = ContactTracingToken.isAdminByAddress[dataKey];
+    }
+    if (bool) {
+      if (userType === "admin") {
+        if (bool.value) {
+          return (
+            <Typography variant="h5">
+              This user is a <span style={{ color: "green" }}>registered</span>{" "}
+              admin
+            </Typography>
+          );
+        } else {
+          return (
+            <Typography variant="h5">
+              This user is
+              <span style={{ color: "red" }}> not a registered</span> admin
+            </Typography>
+          );
+        }
+      } else if (userType === "tracer") {
+        if (bool.value) {
+          return (
+            <Typography variant="h5">
+              This user is a <span style={{ color: "green" }}>registered</span>{" "}
+              tracer
+            </Typography>
+          );
+        } else {
+          return (
+            <Typography variant="h5">
+              This user is
+              <span style={{ color: "red" }}> not a registered</span> tracer
+            </Typography>
+          );
+        }
+      }
+    }
+    return null;
   };
 
   return (
@@ -90,7 +161,7 @@ const CheckUser = () => {
                 </MenuItem>
                 <MenuItem value="citizen">Citizen</MenuItem>
                 <MenuItem value="tracer">Tracer</MenuItem>
-                <MenuItem value="shop">Shop</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -138,14 +209,14 @@ const CheckUser = () => {
                       />
                     </div>
                   );
-                } else if (userType === "shop") {
+                } else if (userType === "admin") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="h6">Shop's ID</Typography>
+                      <Typography variant="h6">Admin's ID</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter Shop's ID"
+                        placeholder="Enter Admin's ID"
                         value={inputDetails ? inputDetails.id : ""}
                         onChange={(e) =>
                           setInputDetails({
@@ -228,14 +299,14 @@ const CheckUser = () => {
                 >
                   Result
                 </Typography>
-                <Typography variant="h5">This user is </Typography>
+                {getResult()}
               </div>
 
               <Typography variant="h6" style={{ paddingBottom: "10px" }}>
-                User Type:
+                User Type to Check: {userType && userType}
               </Typography>
               <Typography variant="h6" style={{ paddingBottom: "10px" }}>
-                Address ID:{" "}
+                ID: {result.id}
               </Typography>
               <Button
                 variant="contained"
@@ -249,6 +320,7 @@ const CheckUser = () => {
                   setInputDetails();
                   setUserType();
                   setResult();
+                  setDataKey();
                 }}
               >
                 Check Another User
