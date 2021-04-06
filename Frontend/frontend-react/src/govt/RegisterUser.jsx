@@ -59,7 +59,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    const contract = drizzle.contracts.Trace;
+    const contract = drizzle.contracts.ContactTracing;
     if (userType === "citizen") {
       // const txId = contract.methods["registerAdmin"].cacheSend(
       //   drizzleState.accounts[1],

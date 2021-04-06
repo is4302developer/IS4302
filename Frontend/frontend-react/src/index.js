@@ -10,12 +10,12 @@ import theme from "../src/theme";
 import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 
-import DigitalTrace from "./artifacts/Trace.json";
-import DigitalToken from "./artifacts/ContactTracing_Token.json";
+import ContactTracing from "./artifacts/ContactTracing.json";
+import ContactTracingToken from "./artifacts/ContactTracingToken.json";
 import ERC721Contract from "./artifacts/ERC721Full.json";
 
 const drizzleOptions = {
-  contracts: [DigitalToken, DigitalTrace], // contract names
+  contracts: [ContactTracingToken, ContactTracing], // contract names
   events: {},
 };
 
