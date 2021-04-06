@@ -13,7 +13,6 @@ contract DigitalEndorse {
     }
     
     function endorseTracer(address tracer) public {
-        //require(tracer is actually a tracer);
         require(cttContract.isTracerByAddress(tracer));
         require(tokenContract.balanceOf(msg.sender) > 0);
         uint256 tokId = tokenContract.getTokenId(msg.sender);
