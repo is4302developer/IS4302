@@ -84,12 +84,14 @@ contract ContactTracing {
         for (uint i = 0; i < 5; i++) {
             if (appointedDuties[tokenIdTracer][i].tokenIdSuspect == tokenIdSuspect) {
                 isValid = true;
+                break;
             }
         }
         require(isValid == true);
         AccessRecord memory newRecord = AccessRecord(msg.sender, _timeStamp, _purpose);
         address suspect = cttContract.getTokenOwner(tokenIdSuspect);
         accessRecords[suspect].push(newRecord);
+        appointedDuties[tokenIdTracer][i].caseExists = false;
         // //return True;
     }
 
