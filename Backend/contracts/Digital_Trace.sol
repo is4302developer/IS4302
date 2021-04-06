@@ -81,7 +81,8 @@ contract ContactTracing {
     function approveRetrieval(bytes32 _timeStamp, bytes32 _purpose, uint256 tokenIdSuspect) public {
         uint256 tokenIdTracer = cttContract.getCitizenTokenId(msg.sender);
         bool isValid = false;
-        for (uint i = 0; i < 5; i++) {
+        uint i;
+        for (i = 0; i < 5; i++) {
             if (appointedDuties[tokenIdTracer][i].tokenIdSuspect == tokenIdSuspect) {
                 isValid = true;
                 break;
