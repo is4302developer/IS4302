@@ -60,15 +60,16 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
     e.preventDefault();
 
     const contract = drizzle.contracts.ContactTracing;
+    const contract2 = drizzle.contracts.ContactTracingToken;
     if (userType === "citizen") {
-      // const txId = contract.methods["registerAdmin"].cacheSend(
+      // const txId = contract2.methods["registerAdmin"].cacheSend(
       //   drizzleState.accounts[1],
       //   {
       //     from: drizzleState.accounts[0],
       //   }
       // );
     } else if (userType === "tracer") {
-      const txId = contract.methods["registerTracer"].cacheSend(
+      const txId = contract2.methods["registerTracer"].cacheSend(
         drizzleState.accounts[0],
         {
           from: drizzleState.accounts[0],
@@ -76,7 +77,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
       );
       setDataKey(txId);
     } else if (userType === "admin") {
-      const txId = contract.methods["registerAdmin"].cacheSend(
+      const txId = contract2.methods["registerAdmin"].cacheSend(
         drizzleState.accounts[0],
         {
           from: drizzleState.accounts[0],
