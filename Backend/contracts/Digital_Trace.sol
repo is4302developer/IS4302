@@ -34,18 +34,6 @@ contract ContactTracing {
     mapping(address => AccessRecord[]) accessRecords;
     mapping(uint256 => uint256) appointedTracers;  // appointer => appointed
     mapping(uint256 => TracingDuty[5]) appointedDuties; 
-    mapping(address => bool) public admins;
-    mapping(address => bool) public tracers;
-
-    modifier onlyOwner() {
-        require(msg.sender == contractOwner);
-        _;
-    }
-    
-    modifier onlyAdmin() {
-        require(admins[msg.sender]);
-        _;
-    }
 
     function checkIn(uint256 tokenId) public view returns (bool) {
         address _address = cttContract.getTokenOwner(tokenId);
@@ -88,14 +76,6 @@ contract ContactTracing {
             }
         }
         return false;
-    }
-    
-    function registerAdmin(address admin) public onlyOwner{
-        admins[admin] = true;
-    }
-    
-    function registerTracer(address tracer) public onlyAdmin{
-        tracers[tracer] = true;
     }
 
     function approveRetrieval(bytes32 _timeStamp, bytes32 _purpose) public {
