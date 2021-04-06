@@ -100,9 +100,23 @@ contract ContactTracing {
         return accessRecords[_citizen];
     }
 
-    function getTracingDuties(address _citizen) public view returns(TracingDuty[5] memory) {
-        uint256 tokId = cttContract.getCitizenTokenId(_citizen);
+    function getTracingDuties(address tracer) public view returns(TracingDuty[5] memory) {
+        uint256 tokId = cttContract.getCitizenTokenId(tracer);
         return appointedDuties[tokId];
+    }
+
+    // For citizens to rate the contact tracer they have appointed
+    function rateTracer(uint256 tokenId, uint256 rating) public {
+        require(cttContract.isTracerByTokenId(tokenId) == true);
+        require(rating >= 0);
+        require(rating <= 5);
+        address tracer = cttContract.getTokenOwner(tokenId);
+        uint256 numReview = cttContract.getCitizenReview(tracer) + 1;
+        uint256 totalRating = cttContract.getCitizenTotalRating(tracer) + rating;
+        uint256 tracerRating = totalRating/numReview;
+        cttContract.setCitizenReview(tokenId, numReview);
+        cttContract.setCitizenTotalRating(tokenId, totalRating);
+        cttContract.setCitizenRating(tokenId, tracerRating);
     }
 
 

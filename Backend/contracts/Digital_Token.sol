@@ -18,6 +18,7 @@ contract ContactTracingToken is ERC721Full {
         uint256 tokenId;
         citizenRole role;
         uint256 numReview;
+        uint256 totalRating;
         uint256 rating;
         uint256 numOfGuarantors;
     }
@@ -48,6 +49,7 @@ contract ContactTracingToken is ERC721Full {
             citizenRole.NA,
             0,
             0,
+            0,
             0
         );
         citizens[citizenAddress] = newToken;
@@ -60,6 +62,7 @@ contract ContactTracingToken is ERC721Full {
     }
 
     function registerTracer(address citizenAddress) public onlyAdmin(msg.sender) validToken(citizenAddress) {
+        require(citizens[citizenAddress].numOfGuarantors >= 3);
         citizens[citizenAddress].role = citizenRole.tracer;
     }
 
@@ -74,6 +77,10 @@ contract ContactTracingToken is ERC721Full {
     function getCitizenReview(address citizenAddress) external view returns (uint256) {
         return citizens[citizenAddress].numReview;
     }
+    
+    function getCitizenTotalRating(address citizenAddress) external view returns (uint256) {
+        return citizens[citizenAddress].totalRating;
+    }
 
     function getCitizenRating(address citizenAddress) external view returns (uint256) {
         return citizens[citizenAddress].rating;
@@ -86,6 +93,11 @@ contract ContactTracingToken is ERC721Full {
     function setCitizenReview(uint256 tokenId, uint256 value) external {
         address citizenAddress = getTokenOwner(tokenId);
         citizens[citizenAddress].numReview = value;
+    }
+
+    function setCitizenTotalRating(uint256 tokenId, uint256 value) external {
+        address citizenAddress = getTokenOwner(tokenId);
+        citizens[citizenAddress].totalRating = value;
     }
 
     function setCitizenRating(uint256 tokenId, uint256 value) external {
