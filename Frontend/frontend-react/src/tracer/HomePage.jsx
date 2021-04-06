@@ -10,7 +10,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { DataGrid, GridRowsProp, GridColDef } from "@material-ui/data-grid";
+import { DataGrid } from "@material-ui/data-grid";
 
 
 const styles = makeStyles((theme) => ({
@@ -56,7 +56,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
     // setDataKey(value);
   }, []);
 
-  const safeEntryColumns: GridColDef[] = [
+  const safeEntryColumns = [
     { field: "date", headerName: "Date (ddmmyy)", width: 300 },
     { field: "checkin", headerName: "Check in time (hh:mm:ss)", width: 350 },
     { field: "checkout", headerName: "Check out time (hh:mm:ss)", width: 350 },
@@ -64,7 +64,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
   ];
 
   // const [safeEntryRows, setSafeEntryRows] = useState([]);
-  const safeEntryRows: GridRowsProp = [
+  const safeEntryRows = [
     { id: 1, date: '250320', checkin: '12:30:01', checkout: '13:05:23', shopname: 'NEX BURGER KING' },
     { id: 2, date: '250320', checkin: '21:22:15', checkout: '23:58:10', shopname: "KING'S POOL" },
     { id: 3, date: '260320', checkin: '10:50:30', checkout: '12:16:34', shopname: "TOA PAYOH CENTRAL LIBRARY" },
