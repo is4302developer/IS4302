@@ -5,6 +5,7 @@ import CitizenHomePage from "../src/citizen/HomePage";
 import CitizenCheckInPage from "../src/citizen/CheckInPage";
 import CitizenCheckInPass from "../src/citizen/CheckInPass";
 import CitizenCheckOutPass from "../src/citizen/CheckOutPass";
+import CitizenCheckAccess from "../src/citizen/CheckAccess";
 import TracerLoginPage from "../src/tracer/LoginPage";
 import TracerHomePage from "../src/tracer/HomePage";
 import GovtLoginPage from "../src/govt/LoginPage";
@@ -28,6 +29,13 @@ const App = ({ drizzle, drizzleState }) => {
         path="/citizen/home"
         render={() => (
           <CitizenHomePage drizzle={drizzle} drizzleState={drizzleState} />
+        )}
+      />
+      <Route
+        exact
+        path="/citizen/checkaccess"
+        render={() => (
+          <CitizenCheckAccess drizzle={drizzle} drizzleState={drizzleState} />
         )}
       />
       <Route
