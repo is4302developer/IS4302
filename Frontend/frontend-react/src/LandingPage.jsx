@@ -24,9 +24,13 @@ const LandingPage = () => {
   return (
     <div>
       <Paper elevation={3} className={classes.paper}>
-        <Typography variant="h4" style={{ paddingBottom: "20px" }}>
-          I am a
+        <Typography
+          variant="h2"
+          style={{ paddingBottom: "20px", color: "#ef6c00", fontWeight: "600" }}
+        >
+          Contact Tracing
         </Typography>
+
         <div
           style={{
             display: "flex",
