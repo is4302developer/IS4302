@@ -9,6 +9,7 @@ import {
   Link
 } from "@material-ui/core";
 import { useHistory } from "react-router";
+import PageTitle from "../components/PageTitle";
 
 
 const styles = makeStyles((theme) => ({
@@ -40,6 +41,27 @@ const HomePage = () => {
     <div>
       <Navbar path='citizen' />
       <div className={classes.content}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {/* <div>{getDetails()}</div> */}
+          <PageTitle title="Citizen" />
+          <div style={{ marginLeft: "auto" }}>
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{ marginLeft: "auto" }}
+              component={Link}
+              to="/citizencheckaccess"
+            >
+              Check Access Records
+            </Button>
+          </div>
+        </div>
         <Paper className={classes.paper}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Box>
