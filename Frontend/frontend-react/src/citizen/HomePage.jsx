@@ -6,8 +6,8 @@ import {
   Paper,
   Typography,
   Box,
-  Link
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import PageTitle from "../components/PageTitle";
 
@@ -55,7 +55,7 @@ const HomePage = () => {
               color="primary"
               style={{ marginLeft: "auto" }}
               component={Link}
-              to="/citizencheckaccess"
+              to="/citizen/checkaccess"
             >
               Check Access Records
             </Button>
