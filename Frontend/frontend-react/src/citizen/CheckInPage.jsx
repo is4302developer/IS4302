@@ -4,12 +4,14 @@ import Navbar from "../components/Navbar";
 import {
   Button,
   FormControl,
+  IconButton,
   Paper,
   TextField,
   Typography,
   Divider,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { ArrowBack } from "@material-ui/icons";
 import { DataGrid } from "@material-ui/data-grid";
 import PageTitle from "../components/PageTitle";
 
@@ -64,13 +66,13 @@ const HomePage = () => {
     <div>
       <Navbar path="citizen" />
       <div className={classes.content}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            onClick={() => history.push(`/citizen/home`)}
+            style={{ marginRight: "20px" }}
+          >
+            <ArrowBack />
+          </IconButton>
           <PageTitle title="Citizen" />
         </div>
         <Paper className={classes.paper}>
