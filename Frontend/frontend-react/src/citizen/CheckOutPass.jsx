@@ -71,7 +71,9 @@ const HomePage = () => {
                 />
               </Icon>
             </Box>
-            <PageTitle style={{ paddingLeft: "40px" }} title="Safe Entry Check-out" />
+            <Typography variant="h1" style={{ paddingLeft: "40px" }} >
+              Safe Entry Check-out
+            </Typography>
           </div>
         </Paper>
         <Paper className={classes.paperbottom}>
