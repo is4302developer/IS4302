@@ -84,6 +84,7 @@ const CheckUser = ({ drizzle, drizzleState }) => {
     } else if (userType === "admin") {
       bool = ContactTracingToken.isAdminByAddress[dataKey];
     }
+    console.log(bool);
     if (bool) {
       if (userType === "admin") {
         if (bool.value) {

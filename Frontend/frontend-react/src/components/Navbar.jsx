@@ -40,7 +40,7 @@ const Navbar = ({ path }) => {
   return (
     <AppBar
       className={classes.appBar}
-      style={{ backgroundColor: `#C8D6FA` }}
+      style={{ backgroundColor: `#4db6ac` }}
       elevation={5}
     >
       <Toolbar className={classes.toolbar}>

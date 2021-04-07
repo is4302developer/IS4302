@@ -12,6 +12,7 @@ const useStyles = makeStyles(() => ({
   },
   title: {
     fontWeight: "bold",
+    color: "#ef6c00",
   },
 }));
 

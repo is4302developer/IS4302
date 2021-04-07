@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { Box, Button, Divider, Tab, Tabs, Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
+import PageTitle from "../components/PageTitle";
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -103,11 +104,15 @@ const HomePage = ({ drizzle, drizzleState }) => {
     <div>
       <Navbar path="govt" />
       <div className={classes.content}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           {/* <div>{getDetails()}</div> */}
-          <Typography variant="h2" style={{ fontWeight: 600 }}>
-            Government
-          </Typography>
+          <PageTitle title="Government" />
           <div style={{ marginLeft: "auto" }}>
             <Button
               variant="outlined"
@@ -141,7 +146,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
         >
           <Tab className={classes.tab} label="Citizen" />
           <Tab className={classes.tab} label="Tracer" />
-          <Tab className={classes.tab} label="Shop" />
+          {/* <Tab className={classes.tab} label="Shop" /> */}
         </Tabs>
         <Divider
           style={{
