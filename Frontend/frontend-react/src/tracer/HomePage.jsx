@@ -41,7 +41,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
     const contract1 = drizzle.contracts.ContactTracing;
     // const value = contract.methods["getOwnerOfContract"].cacheCall();
 
-    const txId = contract1.methods["getAccessRecords"].cacheCall(
+    const txId = contract1.methods["approveRetrieval"].cacheCall(
       drizzleState.accounts[0],
       {
         from: drizzleState.accounts[0],
@@ -52,7 +52,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
   };
 
   useEffect(() => {
-    init();
+    // init();
     // setDataKey(value);
   }, []);
 
