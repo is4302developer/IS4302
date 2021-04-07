@@ -48,7 +48,6 @@ const HomePage = () => {
             alignItems: "center",
           }}
         >
-          {/* <div>{getDetails()}</div> */}
           <PageTitle title="Citizen" />
           <div style={{ marginLeft: "auto" }}>
             <Button
