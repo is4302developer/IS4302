@@ -38,7 +38,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
   const init = () => {
     console.log(drizzleState);
     // const contract = drizzle.contracts.ContactTracing_Token;
-    const contract1 = drizzle.contracts.Trace;
+    const contract1 = drizzle.contracts.ContactTracing;
     // const value = contract.methods["getOwnerOfContract"].cacheCall();
 
     const txId = contract1.methods["getAccessRecords"].cacheCall(
@@ -73,9 +73,9 @@ const HomePage = ({ drizzle, drizzleState }) => {
   ]
 
   const getDetails = () => {
-    const { Trace } = drizzleState.contracts;
-    console.log(Trace);
-    const getRecords = Trace.getAccessRecords[dataKey];
+    const { ContactTracing } = drizzleState.contracts;
+    console.log(ContactTracing);
+    const getRecords = ContactTracing.getAccessRecords[dataKey];
     console.log(getRecords);
   };
 
