@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { DataGrid } from "@material-ui/data-grid";
+import PageTitle from "../components/PageTitle";
 
 
 const styles = makeStyles((theme) => ({
@@ -83,6 +84,15 @@ const HomePage = ({ drizzle, drizzleState }) => {
     <div>
       <Navbar path="tracer" />
       <div className={classes.content}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <PageTitle title="Tracer" />
+        </div>
         <div>{getDetails()}</div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Grid container alignItems="center">
