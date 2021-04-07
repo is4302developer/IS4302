@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { DataGrid } from "@material-ui/data-grid";
+import PageTitle from "../components/PageTitle";
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -63,6 +64,15 @@ const HomePage = () => {
     <div>
       <Navbar path="citizen" />
       <div className={classes.content}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <PageTitle title="Citizen" />
+        </div>
         <Paper className={classes.paper}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Typography variant="h6" style={{ paddingRight: "20px" }}>
