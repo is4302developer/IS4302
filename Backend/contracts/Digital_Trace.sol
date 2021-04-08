@@ -13,15 +13,9 @@ contract ContactTracing {
         contractOwner = msg.sender;
     }
 
-    // struct AccessRecord {
-    //     uint256 tokenIdTracer;
-    //     uint256 tokenIdSuspect;
-    //     bytes32 timeStamp; 
-    // }
-
     struct AccessRecord {
         address tracer;
-        bytes32 timeStamp; //no datetime type added yet 
+        bytes32 timeStamp; 
         bytes32 purpose;
     }
 
@@ -30,7 +24,6 @@ contract ContactTracing {
         bool caseExists;
     }
 
-    // mapping(uint256 => AccessRecord[]) accessRecords;
     mapping(address => AccessRecord[]) accessRecords;
     mapping(uint256 => uint256) appointedTracers;  // appointer => appointed
     mapping(uint256 => TracingDuty[5]) appointedDuties; 
@@ -93,7 +86,6 @@ contract ContactTracing {
         address suspect = cttContract.getTokenOwner(tokenIdSuspect);
         accessRecords[suspect].push(newRecord);
         appointedDuties[tokenIdTracer][i].caseExists = false;
-        // //return True;
     }
 
     function getAccessRecords(address _citizen) public view returns(AccessRecord[] memory) {
@@ -119,69 +111,4 @@ contract ContactTracing {
         cttContract.setCitizenRating(tokenId, tracerRating);
     }
 
-
 }
-
-// contract Trace {
-
-//     address owner;
-    
-//     mapping(address => bool) public admins;
-//     mapping(address => bool) public tracers;
-    
-    
-//     //given a token, returns all the trace records. but only tracer can know who owns the token by querying the db.
-    
-//     struct AccessRecord {
-//         address tracer;
-//         bytes32 timeStamp; //no datetime type added yet 
-//         bytes32 purpose;
-//     }
-
-//     mapping(address => AccessRecord[]) accessRecords; 
-//     // given citizen address, see all the access records.
-    
-//     constructor() public {
-//       owner = msg.sender;
-//     }
-  
-//     modifier onlyOwner() {
-//         require(msg.sender == owner);
-//         _;
-//     }
-    
-//     modifier onlyAdmin() {
-//         require(admins[msg.sender]);
-//         _;
-//     }
-    
-//     modifier onlyTracer() {
-//         require(tracers[msg.sender]);
-//         _;
-//     }
-    
-//     function registerAdmin(address admin) public onlyOwner{
-//         admins[admin] = true;
-//     }
-    
-//     function registerTracer(address tracer) public onlyAdmin{
-//         tracers[tracer] = true;
-//     }
-    
-    
-//     function approveRetrieval(bytes32 _timeStamp, bytes32 _purpose) public {
-//         AccessRecord memory newRecord = AccessRecord(msg.sender,_timeStamp, _purpose);
-//         accessRecords[msg.sender].push(newRecord);
-//         //return True;
-//     }
-    
-//     function getOwner() public view returns(address){
-//         return owner;
-//     }
-
-    
-//     function getAccessRecords (address _citizen) public view returns(AccessRecord[] memory) {
-//         return  accessRecords[_citizen];
-//     }
-
-// }
