@@ -137,13 +137,13 @@ const HomePage = ({ drizzle, drizzleState }) => {
           {/* <div>{getDetails()}</div> */}
           <PageTitle title="Government" />
           <div style={{ marginLeft: "auto" }}>
-            <Button
+            {/* <Button
               variant="outlined"
               color="primary"
               onClick={() => approveRetrieval()}
             >
               approve Retrieval
-            </Button>
+            </Button> */}
             <Button
               variant="outlined"
               color="primary"

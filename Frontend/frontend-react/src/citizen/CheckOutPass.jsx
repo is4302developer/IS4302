@@ -1,15 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbar";
-import {
-  Button,
-  Paper,
-  Typography,
-  Box,
-  Icon
-} from "@material-ui/core";
+import { Button, Paper, Typography, Box, Icon } from "@material-ui/core";
 import { useHistory } from "react-router";
-import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
+import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
 import PageTitle from "../components/PageTitle";
 
 const styles = makeStyles((theme) => ({
@@ -31,7 +25,7 @@ const styles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     elevation: 1,
     backgroundColor: "#ff7961",
-    square: false
+    square: false,
   },
   paperbottom: {
     display: "flex",
@@ -60,18 +54,18 @@ const HomePage = () => {
 
   return (
     <div>
-      <Navbar path='citizen' />
+      <Navbar path="citizen" />
       <div className={classes.content}>
         <Paper className={classes.papertop}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Box>
               <Icon style={{ paddingLeft: "40px" }}>
-                <TransferWithinAStationIcon 
-                  style={{ width: "60px", height: "60px"}}
+                <TransferWithinAStationIcon
+                  style={{ width: "60px", height: "60px" }}
                 />
               </Icon>
             </Box>
-            <Typography variant="h1" style={{ paddingLeft: "40px" }} >
+            <Typography variant="h1" style={{ paddingLeft: "40px" }}>
               Safe Entry Check-out
             </Typography>
           </div>
@@ -86,13 +80,14 @@ const HomePage = () => {
                 12:05 PM
               </Typography>
               <Typography variant="h2" align="center" className={classes.info}>
-                NEX SHOPPING CENTRE
+                NEX BURGER KING
               </Typography>
             </Box>
           </div>
         </Paper>
-        <Button className={classes.button}
-          type="submit" 
+        <Button
+          className={classes.button}
+          type="submit"
           onClick={() => history.push(`/citizen/home`)}
         >
           Back to Home

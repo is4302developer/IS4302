@@ -12,7 +12,8 @@ import {
 import { useHistory } from "react-router";
 import { DataGrid } from "@material-ui/data-grid";
 import PageTitle from "../components/PageTitle";
-
+var Web3 = require("web3");
+var web3 = new Web3(Web3.givenProvider || "ws://localhost:7545");
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -31,19 +32,25 @@ const HomePage = ({ drizzle, drizzleState }) => {
   const [show, setShow] = useState(false);
   const [dataKey, setDataKey] = useState(null);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    setShow(true);
-  }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   setShow(true);
+  // }
 
-  const init = () => {
-    console.log(drizzleState);
-    // const contract = drizzle.contracts.ContactTracing_Token;
-    const contract1 = drizzle.contracts.ContactTracing;
-    // const value = contract.methods["getOwnerOfContract"].cacheCall();
+  const approveRetrieval = () => {
+    const contract = drizzle.contracts.ContactTracing;
+    const timestamp = web3.utils.padLeft(new Date());
+    // console.log(web3.utils.asciiToHex("HELLO WORLD"));
 
-    const txId = contract1.methods["approveRetrieval"].cacheCall(
-      drizzleState.accounts[0],
+    // const string = web3.utils.padLeft("HELLO WORLD", 64);
+    // console.log(string);
+    // console.log(web3.utils.asciiToHex(string));
+    const purpose = {};
+    const tokenId = 2;
+    const txId = contract.methods["approveRetrieval"].cacheSend(
+      web3.utils.asciiToHex("HELLO WORLD"),
+      web3.utils.asciiToHex("HELLO WORLD"),
+      tokenId,
       {
         from: drizzleState.accounts[0],
       }
@@ -52,10 +59,21 @@ const HomePage = ({ drizzle, drizzleState }) => {
     setDataKey(txId);
   };
 
-  useEffect(() => {
-    // init();
-    // setDataKey(value);
-  }, []);
+  const getTxtStatus = () => {
+    // get the transaction states from the drizzle state
+    const { transactions, transactionStack } = drizzleState;
+    const txHash = transactionStack[dataKey];
+    if (
+      txHash &&
+      transactions[txHash] &&
+      transactions[txHash].status === "success"
+    ) {
+      // console.log(transactions[txHash]);
+      if (!show) {
+        setShow(true);
+      }
+    }
+  };
 
   const safeEntryColumns = [
     { field: "date", headerName: "Date (ddmmyy)", width: 300 },
@@ -66,19 +84,49 @@ const HomePage = ({ drizzle, drizzleState }) => {
 
   // const [safeEntryRows, setSafeEntryRows] = useState([]);
   const safeEntryRows = [
-    { id: 1, date: '250320', checkin: '12:30:01', checkout: '13:05:23', shopname: 'NEX BURGER KING' },
-    { id: 2, date: '250320', checkin: '21:22:15', checkout: '23:58:10', shopname: "KING'S POOL" },
-    { id: 3, date: '260320', checkin: '10:50:30', checkout: '12:16:34', shopname: "TOA PAYOH CENTRAL LIBRARY" },
-    { id: 4, date: '260320', checkin: '15:06:09', checkout: '18:30:48', shopname: "NUS SCHOOL OF COMPUTING" },
-    { id: 5, date: '270320', checkin: '11:30:01', checkout: '12:05:17', shopname: "NUS THE DECK CANTEEN" },
-  ]
+    {
+      id: 1,
+      date: "250320",
+      checkin: "12:30:01",
+      checkout: "13:05:23",
+      shopname: "NEX BURGER KING",
+    },
+    {
+      id: 2,
+      date: "250320",
+      checkin: "21:22:15",
+      checkout: "23:58:10",
+      shopname: "KING'S POOL",
+    },
+    {
+      id: 3,
+      date: "260320",
+      checkin: "10:50:30",
+      checkout: "12:16:34",
+      shopname: "TOA PAYOH CENTRAL LIBRARY",
+    },
+    {
+      id: 4,
+      date: "260320",
+      checkin: "15:06:09",
+      checkout: "18:30:48",
+      shopname: "NUS SCHOOL OF COMPUTING",
+    },
+    {
+      id: 5,
+      date: "270320",
+      checkin: "11:30:01",
+      checkout: "12:05:17",
+      shopname: "NUS THE DECK CANTEEN",
+    },
+  ];
 
-  const getDetails = () => {
-    const { ContactTracing } = drizzleState.contracts;
-    console.log(ContactTracing);
-    const getRecords = ContactTracing.getAccessRecords[dataKey];
-    console.log(getRecords);
-  };
+  // const getDetails = () => {
+  //   const { ContactTracing } = drizzleState.contracts;
+  //   console.log(ContactTracing);
+  //   const getRecords = ContactTracing.getAccessRecords[dataKey];
+  //   console.log(getRecords);
+  // };
 
   return (
     <div>
@@ -93,7 +141,7 @@ const HomePage = ({ drizzle, drizzleState }) => {
         >
           <PageTitle title="Tracer" />
         </div>
-        <div>{getDetails()}</div>
+        <div>{getTxtStatus()}</div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Grid container alignItems="center">
             <Grid item>
@@ -107,32 +155,41 @@ const HomePage = ({ drizzle, drizzleState }) => {
                 variant="outlined"
                 className={classes.formControl}
               >
-                <TextField id="outlined-basic" label="Type here" variant="outlined" required autoFocus/>
+                <TextField
+                  id="outlined-basic"
+                  label="Type here"
+                  variant="outlined"
+                  required
+                  autoFocus
+                />
               </FormControl>
             </Grid>
 
             <Grid item alignItems="stretch">
-              <Button 
-                variant="contained" 
+              <Button
+                variant="contained"
                 color="primary"
-                type="submit" 
-                onClick={handleSubmit}
+                type="submit"
+                onClick={() => approveRetrieval()}
+                style={{ marginLeft: "20px" }}
               >
-              Retrieve
+                Retrieve
               </Button>
             </Grid>
           </Grid>
         </div>
-        {show && <div style={{ height: "400px", marginTop: "10px" }}>
-          <DataGrid
-            rows={safeEntryRows}
-            columns={safeEntryColumns}
-            pageSize={10}
-            //checkboxSelection
-            disableSelectionOnClick
-            onRowClick={(e) => console.log("E")}
-          />
-        </div>}
+        {show && (
+          <div style={{ height: "400px", marginTop: "10px" }}>
+            <DataGrid
+              rows={safeEntryRows}
+              columns={safeEntryColumns}
+              pageSize={10}
+              //checkboxSelection
+              disableSelectionOnClick
+              onRowClick={(e) => console.log("E")}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

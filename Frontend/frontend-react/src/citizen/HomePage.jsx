@@ -1,16 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbar";
-import {
-  Button,
-  Paper,
-  Typography,
-  Box,
-} from "@material-ui/core";
+import { Button, Paper, Typography, Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import PageTitle from "../components/PageTitle";
-
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -39,7 +33,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Navbar path='citizen' />
+      <Navbar path="citizen" />
       <div className={classes.content}>
         <div
           style={{
@@ -69,9 +63,9 @@ const HomePage = () => {
               </Typography>
             </Box>
             <Box style={{ paddingLeft: "290px" }}>
-              <Button 
-                variant="contained" 
-                style={{ backgroundColor: "#B6EFA7"}} 
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#B6EFA7", width: 100 }}
                 onClick={() => history.push(`/citizen/checkin`)}
               >
                 Check In
@@ -85,19 +79,17 @@ const HomePage = () => {
               <Typography variant="h6" style={{ paddingBottom: "5px" }}>
                 You last checked in at
               </Typography>
-              <Typography variant="h3">
-                NEX SHOPPING CENTRE
-              </Typography>
+              <Typography variant="h3">NEX BURGER KING</Typography>
               <Typography variant="h6" style={{ paddingTop: "5px" }}>
                 <Link onClick={() => history.push(`/citizen/checkinpass`)}>
                   View check-in pass
                 </Link>
               </Typography>
             </Box>
-            <Box style={{ paddingLeft: "150px" }}>
-              <Button 
-                variant="contained" 
-                style={{ backgroundColor: "#ff7961"}} 
+            <Box style={{ marginLeft: "auto" }}>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#ff7961" }}
                 onClick={() => history.push(`/citizen/checkoutpass`)}
               >
                 Check Out

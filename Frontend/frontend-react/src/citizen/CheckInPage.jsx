@@ -97,7 +97,7 @@ const HomePage = () => {
             </FormControl>
             <Button
               variant="contained"
-              style={{ backgroundColor: "#B6EFA7" }}
+              style={{ backgroundColor: "#B6EFA7", marginLeft: "20px" }}
               type="submit"
               size="large"
               onClick={() => history.push(`/citizen/checkinpass`)}
