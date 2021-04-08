@@ -42,6 +42,13 @@ contract ContactTracingToken is ERC721Full {
         _;
     }
 
+    // Ensures thar the tokenId has been minted
+    modifier validTokenId(uint256 tokenId) {
+        address _address = tokenOwners[tokenId];
+        require(citizens[_address].isMinted == true);
+        _;
+    }
+
     function createToken(address citizenAddress) public onlyAdmin(msg.sender) validIssuance(citizenAddress) {
         _mint(citizenAddress, issueId);  
         citizenToken memory newToken = citizenToken(
@@ -58,11 +65,11 @@ contract ContactTracingToken is ERC721Full {
         issueId++;
     }
 
-    function getTokenOwner(uint256 tokenId) public view returns (address) {
+    function getTokenOwner(uint256 tokenId) public view validTokenId(tokenId) returns (address) {
         return tokenOwners[tokenId];
     }
 
-    function getCitizenTokenId(address citizenAddress) public view returns (uint256) {
+    function getCitizenTokenId(address citizenAddress) public view validToken(citizenAddress) returns (uint256) {
         return citizens[citizenAddress].tokenId;
     }
 
@@ -78,19 +85,19 @@ contract ContactTracingToken is ERC721Full {
         contactTracers.push(tokenId);
     }
 
-    function getCitizenReview(address citizenAddress) external view returns (uint256) {
+    function getCitizenReview(address citizenAddress) external view validToken(citizenAddress) returns (uint256) {
         return citizens[citizenAddress].numReview;
     }
     
-    function getCitizenTotalRating(address citizenAddress) external view returns (uint256) {
+    function getCitizenTotalRating(address citizenAddress) external view validToken(citizenAddress) returns (uint256) {
         return citizens[citizenAddress].totalRating;
     }
 
-    function getCitizenRating(address citizenAddress) external view returns (uint256) {
+    function getCitizenRating(address citizenAddress) external view validToken(citizenAddress) returns (uint256) {
         return citizens[citizenAddress].rating;
     }
 
-    function getCitizenGuarantors(address citizenAddress) external view returns (uint256) {
+    function getCitizenGuarantors(address citizenAddress) external view validToken(citizenAddress) returns (uint256) {
         return citizens[citizenAddress].numOfGuarantors;
     }
 
@@ -98,26 +105,26 @@ contract ContactTracingToken is ERC721Full {
         return contactTracers;
     }
 
-    function setCitizenReview(uint256 tokenId, uint256 value) external {
+    function setCitizenReview(uint256 tokenId, uint256 value) external validTokenId(tokenId) {
         address citizenAddress = getTokenOwner(tokenId);
         citizens[citizenAddress].numReview = value;
     }
 
-    function setCitizenTotalRating(uint256 tokenId, uint256 value) external {
+    function setCitizenTotalRating(uint256 tokenId, uint256 value) external validTokenId(tokenId) {
         address citizenAddress = getTokenOwner(tokenId);
         citizens[citizenAddress].totalRating = value;
     }
 
-    function setCitizenRating(uint256 tokenId, uint256 value) external {
+    function setCitizenRating(uint256 tokenId, uint256 value) external validTokenId(tokenId) {
         address citizenAddress = getTokenOwner(tokenId);
         citizens[citizenAddress].rating = value;
     }
 
-    function setCitizenGuarantors(address citizenAddress, uint256 value) external {
+    function setCitizenGuarantors(address citizenAddress, uint256 value) external validToken(citizenAddress) {
         citizens[citizenAddress].numOfGuarantors = value;
     }
 
-    function isTracerByAddress(address citizenAddress) external view returns (bool)  {
+    function isTracerByAddress(address citizenAddress) external view validToken(citizenAddress) returns (bool)  {
         if (citizens[citizenAddress].role == citizenRole.tracer) {
             return true;
         } else {
@@ -125,7 +132,7 @@ contract ContactTracingToken is ERC721Full {
         }
     }
 
-    function isTracerByTokenId(uint256 tokenId) external view returns (bool) {
+    function isTracerByTokenId(uint256 tokenId) external view validTokenId(tokenId) returns (bool) {
         address citizenAddress = getTokenOwner(tokenId);
         if (citizens[citizenAddress].role == citizenRole.tracer) {
             return true;
@@ -134,7 +141,7 @@ contract ContactTracingToken is ERC721Full {
         }
     }
 
-    function isAdminByAddress(address citizenAddress) external view returns (bool)  {
+    function isAdminByAddress(address citizenAddress) external view validToken(citizenAddress) returns (bool)  {
         if (citizens[citizenAddress].role == citizenRole.admin) {
             return true;
         } else {
@@ -142,7 +149,7 @@ contract ContactTracingToken is ERC721Full {
         }
     }
 
-    function isAdminByTokenId(uint256 tokenId) external view returns (bool) {
+    function isAdminByTokenId(uint256 tokenId) external view validTokenId(tokenId) returns (bool) {
         address citizenAddress = getTokenOwner(tokenId);
         if (citizens[citizenAddress].role == citizenRole.admin) {
             return true;
