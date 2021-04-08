@@ -71,6 +71,7 @@ contract ContactTracingToken is ERC721Full {
     }
 
     function registerTracer(address citizenAddress) public onlyAdmin(msg.sender) validToken(citizenAddress) {
+        require(citizens[citizenAddress].role != citizenRole.tracer);
         require(citizens[citizenAddress].numOfGuarantors >= 3);
         citizens[citizenAddress].role = citizenRole.tracer;
         uint256 tokenId = getCitizenTokenId(citizenAddress);
