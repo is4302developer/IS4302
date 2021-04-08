@@ -5,6 +5,8 @@ import { Box, Button, Divider, Tab, Tabs, Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import PageTitle from "../components/PageTitle";
+var Web3 = require("web3");
+var web3 = new Web3(Web3.givenProvider || "ws://localhost:7545");
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -100,6 +102,27 @@ const HomePage = ({ drizzle, drizzleState }) => {
     console.log(getRecords);
   };
 
+  const approveRetrieval = () => {
+    const contract = drizzle.contracts.ContactTracing;
+    const timestamp = web3.utils.padLeft(new Date());
+    // console.log(web3.utils.asciiToHex("HELLO WORLD"));
+
+    // const string = web3.utils.padLeft("HELLO WORLD", 64);
+    // console.log(string);
+    // console.log(web3.utils.asciiToHex(string));
+    const purpose = {};
+    const tokenId = 2;
+    const txId = contract.methods["approveRetrieval"].cacheSend(
+      web3.utils.asciiToHex("HELLO WORLD"),
+      web3.utils.asciiToHex("HELLO WORLD"),
+      tokenId,
+      {
+        from: drizzleState.accounts[0],
+      }
+    );
+    console.log(txId);
+  };
+
   return (
     <div>
       <Navbar path="govt" />
@@ -114,6 +137,13 @@ const HomePage = ({ drizzle, drizzleState }) => {
           {/* <div>{getDetails()}</div> */}
           <PageTitle title="Government" />
           <div style={{ marginLeft: "auto" }}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => approveRetrieval()}
+            >
+              approve Retrieval
+            </Button>
             <Button
               variant="outlined"
               color="primary"

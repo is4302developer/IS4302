@@ -5,6 +5,7 @@ import PageTitle from "../components/PageTitle";
 import {
   Button,
   FormControl,
+  IconButton,
   InputLabel,
   MenuItem,
   Paper,
@@ -13,7 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { Warning } from "@material-ui/icons";
+import { ArrowBack, Warning } from "@material-ui/icons";
 import Toast from "../components/Toast";
 
 const styles = makeStyles((theme) => ({
@@ -71,7 +72,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
       // );
     } else if (userType === "tracer") {
       const txId = contract2.methods["registerTracer"].cacheSend(
-        drizzleState.accounts[0],
+        registerDetails.id,
         {
           from: drizzleState.accounts[0],
         }
@@ -79,7 +80,7 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
       setDataKey(txId);
     } else if (userType === "admin") {
       const txId = contract2.methods["registerAdmin"].cacheSend(
-        drizzleState.accounts[0],
+        registerDetails.id,
         {
           from: drizzleState.accounts[0],
         }
@@ -124,19 +125,22 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
           },
           autoHideDuration: 5000,
         });
-        setRegisterDetails({ name: "", nric: "", address: "", mobile: "" });
+        setRegisterDetails({
+          name: "",
+          nric: "",
+          address: "",
+          mobile: "",
+          id: "",
+        });
       }
     }
   };
 
   const handleMintToken = () => {
     const contract2 = drizzle.contracts.ContactTracingToken;
-    const tx = contract2.methods["createToken"].cacheSend(
-      drizzleState.accounts[0],
-      {
-        from: drizzleState.accounts[0],
-      }
-    );
+    const tx = contract2.methods["createToken"].cacheSend(registerDetails.id, {
+      from: drizzleState.accounts[0],
+    });
     setDataKey(tx);
     console.log(tx);
   };
@@ -159,7 +163,16 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
       <Navbar path="govt" />
       <div className={classes.content}>
         <Toast open={sbOpen} setOpen={setSbOpen} {...snackbar} />
-        <PageTitle title="Register User" />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            onClick={() => history.push(`/govt/home`)}
+            style={{ marginRight: "20px" }}
+          >
+            <ArrowBack />
+          </IconButton>
+          <PageTitle title="Register User" />
+        </div>
+
         <div>{getTxStatus()}</div>
         {/* <div>{getDetails()}</div> */}
         <Paper className={classes.paper}>
@@ -275,16 +288,16 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
                 } else if (userType === "tracer") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="h6">Name</Typography>
+                      <Typography variant="h6">Tracer's ID</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter Tracer's Name"
-                        value={registerDetails && registerDetails.name}
+                        placeholder="Enter Tracer's ID"
+                        value={registerDetails && registerDetails.id}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
-                            name: e.target.value,
+                            id: e.target.value,
                           })
                         }
                         required
@@ -295,16 +308,16 @@ const RegisterUser = ({ drizzle, drizzleState }) => {
                 } else if (userType === "admin") {
                   return (
                     <div style={{ display: "flex", flexDirection: "column" }}>
-                      <Typography variant="h6">Name</Typography>
+                      <Typography variant="h6">Admin's ID</Typography>
                       <TextField
                         variant="outlined"
                         margin="dense"
-                        placeholder="Enter Admin's Name"
-                        value={registerDetails && registerDetails.name}
+                        placeholder="Enter Admin's ID"
+                        value={registerDetails && registerDetails.id}
                         onChange={(e) =>
                           setRegisterDetails({
                             ...registerDetails,
-                            name: e.target.value,
+                            id: e.target.value,
                           })
                         }
                         required
