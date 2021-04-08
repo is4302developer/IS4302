@@ -46,8 +46,8 @@ contract ContactTracing {
         }
     }
 
-    function viewAvailableContactTracers() public {
-        // To be discussed
+    function viewAvailableContactTracers() public view returns (uint256[] memory) {
+        return cttContract.getContactTracers();
     }
 
     // For citizens to choose and appoint their preferred contact tracer
@@ -93,8 +93,8 @@ contract ContactTracing {
     }
 
     function getTracingDuties(address tracer) public view returns(TracingDuty[5] memory) {
-        uint256 tokId = cttContract.getCitizenTokenId(tracer);
-        return appointedDuties[tokId];
+        uint256 tokenId = cttContract.getCitizenTokenId(tracer);
+        return appointedDuties[tokenId];
     }
 
     // For citizens to rate the contact tracer they have appointed

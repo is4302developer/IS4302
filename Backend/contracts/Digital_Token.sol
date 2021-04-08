@@ -8,6 +8,7 @@ contract ContactTracingToken is ERC721Full {
     uint256 issueId = 0;
     mapping(address => citizenToken) citizens;
     mapping(uint256 => address) tokenOwners;
+    uint256[] contactTracers;
 
     constructor() public ERC721Full("Collectible", "COL") {
         contractOwner = msg.sender;
@@ -57,6 +58,14 @@ contract ContactTracingToken is ERC721Full {
         issueId++;
     }
 
+    function getTokenOwner(uint256 tokenId) public view returns (address) {
+        return tokenOwners[tokenId];
+    }
+
+    function getCitizenTokenId(address citizenAddress) public view returns (uint256) {
+        return citizens[citizenAddress].tokenId;
+    }
+
     function registerAdmin(address citizenAddress) public onlyAdmin(msg.sender) validToken(citizenAddress) {
         citizens[citizenAddress].role = citizenRole.admin;
     }
@@ -64,14 +73,8 @@ contract ContactTracingToken is ERC721Full {
     function registerTracer(address citizenAddress) public onlyAdmin(msg.sender) validToken(citizenAddress) {
         require(citizens[citizenAddress].numOfGuarantors >= 3);
         citizens[citizenAddress].role = citizenRole.tracer;
-    }
-
-    function getTokenOwner(uint256 tokenId) public view returns (address) {
-        return tokenOwners[tokenId];
-    }
-
-    function getCitizenTokenId(address citizenAddress) external view returns (uint256) {
-        return citizens[citizenAddress].tokenId;
+        uint256 tokenId = getCitizenTokenId(citizenAddress);
+        contactTracers.push(tokenId);
     }
 
     function getCitizenReview(address citizenAddress) external view returns (uint256) {
@@ -88,6 +91,10 @@ contract ContactTracingToken is ERC721Full {
 
     function getCitizenGuarantors(address citizenAddress) external view returns (uint256) {
         return citizens[citizenAddress].numOfGuarantors;
+    }
+
+    function getContactTracers() external view returns (uint256[] memory) {
+        return contactTracers;
     }
 
     function setCitizenReview(uint256 tokenId, uint256 value) external {
