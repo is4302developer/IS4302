@@ -102,6 +102,8 @@ contract ContactTracing {
         require(cttContract.isTracerByTokenId(tokenId) == true);
         require(rating >= 0);
         require(rating <= 5);
+        uint256 raterTokenId = cttContract.getCitizenTokenId(msg.sender);
+        require(appointedTracers[raterTokenId] == tokenId);
         address tracer = cttContract.getTokenOwner(tokenId);
         uint256 numReview = cttContract.getCitizenReview(tracer) + 1;
         uint256 totalRating = cttContract.getCitizenTotalRating(tracer) + rating;
