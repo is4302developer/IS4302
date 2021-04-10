@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import PageTitle from "../components/PageTitle";
 
+import axios from "axios";
+
 const styles = makeStyles((theme) => ({
   content: {
     marginTop: "65px",
@@ -27,9 +29,18 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = () => {
+const HomePage = ({ drizzle, drizzleState }) => {
   const classes = styles();
   const history = useHistory();
+
+  const handleCheckout = () => {
+    axios
+      .put("/checkout", { uid: "S1234567A", shopName: "place" })
+      .then((res) => {
+        history.push(`/citizen/checkoutpass`);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -90,7 +101,7 @@ const HomePage = () => {
               <Button
                 variant="contained"
                 style={{ backgroundColor: "#ff7961" }}
-                onClick={() => history.push(`/citizen/checkoutpass`)}
+                onClick={() => handleCheckout()}
               >
                 Check Out
               </Button>

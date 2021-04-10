@@ -15,6 +15,8 @@ import { ArrowBack } from "@material-ui/icons";
 import { DataGrid } from "@material-ui/data-grid";
 import PageTitle from "../components/PageTitle";
 
+import axios from "axios";
+
 const styles = makeStyles((theme) => ({
   content: {
     marginTop: "65px",
@@ -56,11 +58,20 @@ const shopRows = [
   { id: 5, shopname: "NUS THE DECK CANTEEN" },
 ];
 
-const HomePage = () => {
+const HomePage = ({ drizzle, drizzleState }) => {
   const classes = styles();
   const history = useHistory();
 
   const [place, setPlace] = useState();
+
+  const handleCheckIn = () => {
+    axios
+      .post("/checkin", { uid: "S1234567A", shopName: place })
+      .then((res) => {
+        history.push(`/citizen/checkinpass`);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -100,7 +111,7 @@ const HomePage = () => {
               style={{ backgroundColor: "#B6EFA7", marginLeft: "20px" }}
               type="submit"
               size="large"
-              onClick={() => history.push(`/citizen/checkinpass`)}
+              onClick={() => handleCheckIn()}
             >
               Go!
             </Button>
