@@ -13,6 +13,7 @@ Concerned about transparency and accountability issues regarding the current con
 Click on the link above to hear more about our final presentation on the integration of Blockchain technology and contact tracing!
 
 ## Steps to Run the Project
+Ensure that Node and Postgres are already installed.
 
 ### Frontend
 
@@ -27,3 +28,10 @@ Click on the link above to hear more about our final presentation on the integra
 `node index.js`
 
 ### Database
+`cd Database`<br />
+Run the testdatascript.sql file on PostgreSQL: `\i <path>/testdatascript.sql`<br />
+<path> is the path to the testdatascript.sql script<br />
+`cd Database\backend`<br />
+Create/fill up .env file with the connection string:
+	e.g. DATABASE URL=postgres://<username>:<password>@host address:<port>/<database name>
+	replace <username>, <password>, <port> and <databse name> according to your PostgreSQL configuration
