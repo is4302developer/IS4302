@@ -8,12 +8,11 @@ import {
   Paper,
   TextField,
   Typography,
-  Divider
+  Divider,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { ArrowBack } from "@material-ui/icons";
 import { DataGrid } from "@material-ui/data-grid";
-
 
 const styles = makeStyles((theme) => ({
   content: {
@@ -93,9 +92,19 @@ const CheckAccess = ({ drizzle, drizzleState }) => {
   ];
 
   const accessRecordsRows = [
-    { id: 1, date: '250320', time: '14:35:17', tracerID: '1' },
-    { id: 2, date: '260320', time: '12:35:59', tracerID: "2" },
-  ]
+    {
+      id: 1,
+      date: "250320",
+      time: "14:35:17",
+      tracerID: "0xAf32FC6bb0CDBe108A51407dbB100f7Bd94a391C",
+    },
+    {
+      id: 2,
+      date: "260320",
+      time: "12:35:59",
+      tracerID: "0xAf32FC6bb0CDBe108A51407dbB100f7Bd94a391C",
+    },
+  ];
 
   return (
     <div>
@@ -227,7 +236,7 @@ const CheckAccess = ({ drizzle, drizzleState }) => {
             </div>
           )}
         </Paper>
-      </div>  
+      </div>
     </div>
   );
 };
