@@ -23,6 +23,7 @@ Click on the link above to hear more about our final presentation on the integra
 ### Backend server
 
 `cd Database\backend`<br />
+`npm install`<br />
 `node index.js`
 
 ### Database
