@@ -34,4 +34,4 @@ Run the testdatascript.sql file on PostgreSQL: `\i <path>/testdatascript.sql`<br
 `cd Database\backend`<br />
 Create/fill up .env file with the connection string:
 	e.g. DATABASE URL=postgres://<username>:<password>@host address:<port>/<database name>
-	replace <username>, <password>, <port> and <databse name> according to your PostgreSQL configuration
+	replace (username), (password), (port) and (databse name) according to your PostgreSQL configuration.
