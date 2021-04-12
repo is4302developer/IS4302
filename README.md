@@ -1,7 +1,7 @@
-# Group 15 IS4302 Project (Contact Tracing)
+# IS4302 Group 15 Project (Contact Tracing)
 
 <!-- Link to Presentation Video -->
-## Link to Presentation Video: (https://drive.google.com/file/d/1JM7D1OuBW81k08_xM52qtD_H7oMPVBJQ/view?usp=sharing)
+#### Link to Presentation Video: https://drive.google.com/file/d/1JM7D1OuBW81k08_xM52qtD_H7oMPVBJQ/view?usp=sharing
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
