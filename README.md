@@ -30,8 +30,8 @@ Ensure that Node and Postgres are already installed.
 ### Database
 `cd Database`<br />
 Run the testdatascript.sql file on PostgreSQL: `\i <path>/testdatascript.sql`<br />
-<path> is the path to the testdatascript.sql script<br />
+(path) is the path to the testdatascript.sql script<br />
 `cd Database\backend`<br />
 Create/fill up .env file with the connection string:
 	e.g. DATABASE URL=postgres://<username>:<password>@host address:<port>/<database name>
-	replace (username), (password), (port) and (databse name) according to your PostgreSQL configuration.
+	replace (username), (password), (port) and (database name) according to your PostgreSQL configuration.
